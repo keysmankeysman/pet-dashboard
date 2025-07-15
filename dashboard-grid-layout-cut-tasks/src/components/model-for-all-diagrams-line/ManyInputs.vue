@@ -34,8 +34,8 @@ export default {
       required: true
     },
     xAxis: {
-      type: Object,
-      default: () => {}
+      type: Array,
+      default: () => []
     }
   }
 }

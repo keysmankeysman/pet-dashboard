@@ -1,21 +1,13 @@
 <template>
   <v-app class="dashboard-gradient app-background--primary">
     <div data-app>
-      
-      {{ selectType }}
-      
-
       <Chart 
         :options="options"
       />
-
-
       <ManyInputs 
         :series="options.series[0].data"
-        :xAxis="options.xAxis[0].data"
-        :selectType="selectType"
+        :xAxis="options.xAxis.data"
       />
-
     </div>
   </v-app>
 </template>
