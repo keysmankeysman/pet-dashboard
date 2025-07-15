@@ -34,10 +34,10 @@ export default {
   },
   methods: {
     updateXAxis(newXAxis) {
-      this.options.xAxis.data = newXAxis;
+      this.options.xAxis.data = newXAxis
     },
     updateSeries(newSeries) {
-      this.options.series[0].data = newSeries;
+      this.options.series[0].data = newSeries
     }
   }
 }

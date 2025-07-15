@@ -34,39 +34,26 @@
       </v-row>
     </v-container>
     <v-container v-else>
-      <v-row 
-        v-for="(item, index) in seriesData"
-        :key="index"
-        class="mt-2"
-      >
-        <v-col cols="12" sm="5">
+      <v-row>
+        <v-col v-for="(day, index) in xAxis" :key="index">
           <v-text-field
-            v-model="item.name"
-            :label="`Название элемента ${index + 1}`"
-            outlined
-          ></v-text-field>
+            v-model="xAxis[index]"
+            label="День недели"
+            @input="updateXAxis"
+          />
         </v-col>
-        
-        <v-col cols="12" sm="5">
+      </v-row>
+      <v-row>
+        <v-col v-for="(value, index) in series" :key="index">
           <v-text-field
-            v-model.number="item.value"
-            :label="`значение: ${item.name}`"
+            v-model="series[index]"
+            label="Продажи"
             type="number"
-            outlined
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" sm="1">
-          <v-btn
-            color="error"
-            @click="removeItem(index)"
-          >
-            Удалить элемент
-          </v-btn>
+            @input="updateSeries"
+          />
         </v-col>
       </v-row>
     </v-container>
-
-
   </v-container>
 </template>
 
@@ -81,6 +68,14 @@ export default {
     selectType: {
       type: String,
       default: () => ''
+    },
+    xAxis: {
+      type: Array,
+      default: () => []
+    },
+    series: {
+      type: Array,
+      default: () => []
     },
   }
 }
