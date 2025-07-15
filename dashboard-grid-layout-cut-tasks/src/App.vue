@@ -13,18 +13,13 @@
         <TestChartLinear />
 		</v-main> -->
 		<v-main>
-			<v-fade-transition>
-				<router-view/>
-			</v-fade-transition>
+      <the-main />
 		</v-main>
   </v-app>
 </template>
 
 <script>
-// import TestChart from '@/components/TestChart.vue'
-// import TestChartLinear from '@/components/TestChartLinear.vue'
-// import TestChartPie from '@/components/TestChartPie.vue'
-// import TestChartBar from '@/components/TestChartBar.vue'
+import TheMain from '@/components/model-for-all-diagrams-line/TheMain.vue'
 import Aside from '@/components/Aside.vue'
 import Header from '@/components/Header.vue'
 
@@ -38,12 +33,9 @@ export default {
 
   },
   components: {
-			Header,
-			Aside,
-      // TestChart,
-      // TestChartLinear,
-      // TestChartPie,
-      // TestChartBar
+    Header,
+    Aside,
+    TheMain
   }
 }
 </script>
