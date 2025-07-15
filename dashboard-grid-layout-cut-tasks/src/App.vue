@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import TheMain from '@/components/model-for-all-diagrams-line/TheMain.vue'
+import TheMain from '@/components/model-for-all-diagrams-line-i/TheMain.vue'
 import Aside from '@/components/Aside.vue'
 import Header from '@/components/Header.vue'
 

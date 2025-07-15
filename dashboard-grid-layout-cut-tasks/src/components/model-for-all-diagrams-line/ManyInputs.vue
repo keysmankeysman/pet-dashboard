@@ -1,23 +1,14 @@
 <template>
   <v-container>
     <v-row 
-      v-for="(item, index) in series"
+      v-for="(item, index) in xAxis"
       :key="index"
       class="mt-2"
     >
       <v-col cols="12" sm="5">
         <v-text-field
-          v-model="item.name"
+          v-model="item"
           :label="`Название элемента ${index + 1}`"
-          outlined
-        ></v-text-field>
-      </v-col>
-      
-      <v-col cols="12" sm="5">
-        <v-text-field
-          v-model.number="item.value"
-          :label="`значение: ${item.name}`"
-          type="number"
           outlined
         ></v-text-field>
       </v-col>

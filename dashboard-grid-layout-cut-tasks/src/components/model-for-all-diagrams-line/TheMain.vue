@@ -27,6 +27,8 @@ export default {
       xAxis: {},
       series: [], 
 
+      inputData: [],
+
       selectType: 'line'
     }
   },
@@ -38,9 +40,6 @@ export default {
       yAxis: { type: 'value' },
       series: [{ name: 'Продажи', type: 'line', data: [120, 200, 150, 80, 70, 110, 130] }],
     }
-  },
-  methods: {
-
   }
 }
 </script>
