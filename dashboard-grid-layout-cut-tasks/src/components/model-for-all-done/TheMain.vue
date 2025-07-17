@@ -1,5 +1,19 @@
 <template>
   <v-app class="dashboard-gradient app-background--primary">
+
+    <v-app-bar class="app-bar">
+      <v-spacer></v-spacer>
+
+      <v-btn color="primary" class="mr-5">
+        Добавить диаграмму на дашборд
+      </v-btn>
+
+      <v-btn>
+        Обновить до дефолтных значений
+      </v-btn>
+      
+    </v-app-bar>
+
     <div data-app>
       
       <v-select

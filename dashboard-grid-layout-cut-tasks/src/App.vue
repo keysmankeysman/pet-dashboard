@@ -3,26 +3,27 @@
     <Aside v-if="$route.path !== '/login'">
 
     </Aside>
-    <Header v-if="$route.path !== '/login'">
 
-    </Header>
-		<!-- <v-main>
+
+    <!-- <Header v-if="$route.path !== '/login'"></Header> -->
+    <!-- <v-main>
         <TestChart />
         <TestChartBar />
         <TestChartPie />
         <TestChartLinear />
-		</v-main> -->
-		<v-main>
-      <the-main />
-		</v-main>
+    </v-main> -->
+    <v-main>
+      <router-view></router-view>
+      <!-- <the-main /> -->
+    </v-main>
   </v-app>
 </template>
 
 <script>
-import TheMain from '@/components/model-for-all-done/TheMain.vue'
+// import TheMain from '@/components/model-for-all-done/TheMain.vue'
 // import TheMain from '@/components/model-for-all-diagrams-line-i-original/TheMain.vue'
 import Aside from '@/components/Aside.vue'
-import Header from '@/components/Header.vue'
+// import Header from '@/components/Header.vue'
 
 export default {
   name: 'App',
@@ -34,9 +35,17 @@ export default {
 
   },
   components: {
-    Header,
+    // Header,
     Aside,
-    TheMain
+    // TheMain
   }
 }
 </script>
+
+<style scoped>
+
+.app-bar {
+  margin-left: 256px;
+}
+
+</style>

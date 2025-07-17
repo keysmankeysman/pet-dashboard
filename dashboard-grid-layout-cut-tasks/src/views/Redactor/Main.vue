@@ -1,7 +1,17 @@
 <template>
-  <v-app class="dashboard-gradient app-background--primary">
+  <v-app class="app-background--primary">
     <div data-app>
       
+      <v-toolbar>
+        <v-spacer></v-spacer>
+        <v-btn color="primary" class="mr-5">
+          Добавить диаграмму на дашборд
+        </v-btn>
+        <v-btn>
+          Обновить до дефолтных значений
+        </v-btn>
+      </v-toolbar>
+
       <v-select
         v-model="selectType"
         :items="diagramTypes"
@@ -12,21 +22,20 @@
         @change="selectedItem"
       ></v-select>
 
-      <TestChartBarLast 
-        :title="title"
-        :tooltip="tooltip"
-        :xAxis="xAxis"
-        :yAxis="yAxis"
-        :series="series"
+      <Chart 
+        :options="options"
         :selectType="selectType"
       />
 
       <ManyInputs 
         v-if="selectType"
-        :seriesData="seriesInputs"
+        :seriesData="options.series[0].data"
+        :xAxis="options.xAxis?.data"
         :selectType="selectType"
         @addItem="addItem"
         @removeItem="removeItem"
+        @update:xAxis="updateXAxis"
+        @update:series="updateSeries"
       />
 
     </div>
@@ -34,21 +43,19 @@
 </template>
 
 <script>
+import Chart from '@/components/charts/Echarts.vue'
+import ManyInputs from '@/components/ManyInputs.vue'
 
 export default {
   name: 'Redactor',
   components: {
-    // Echarts: () => import('@/components/charts/EchartsCut.vue'),
-    // EchartsII: () => import('@/components/charts/EchartsII.vue'),
-    TestChartBarLast: () => import('@/components/TestChartBarLast.vue'),
-    ManyInputs: () => import('@/components/ManyInputs.vue'),
-    // TestChartBar: () => import('@/components/TestChartBar.vue'),
-    // TestChartLinear: () => import('@/components/TestChartLinear.vue'),
-    // TestChartPie: () => import('@/components/TestChartPie.vue'),
+    ManyInputs,
+    Chart
   },
   data() {
     return {
-      title: {},
+      options: {},
+      title: 'График',
       tooltip: {},
       xAxis: {},
       yAxis: {},
@@ -61,7 +68,6 @@ export default {
       ],
       selectType: '',
       selectedSeriesItem: null,
-      seriesInputs: [],
       item: {
         dashboardId: 29,
         diagramId: 81,
@@ -100,140 +106,76 @@ export default {
     }
   },
   methods: {
-    setTitle(title, left) {
-      this.title = {}
-      this.title.text = title
-      if (left) this.title.left = left
-    },
-    setTooltip(trigger) {
-      this.tooltip = {}
-      if (trigger) this.tooltip.trigger = trigger 
-    },
-    setXAxis(type, data) {
-      this.xAxis = {}
-      this.xAxis.type = type
-      this.xAxis.data = data
-    },
-    setYAxis(type) {
-      this.yAxis = {}
-      this.yAxis.type = type
-    },
-    getSeriesInputs(labels, values) {
-      return labels.map((label, index) => ({
-        name: label,
-        value: values[index]
-      }))
-    },
     selectedItem() {
-      this.series = []
-      const labels = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
-      const data = [120, 200, 150, 80, 70, 110, 130]
+      this.options = {}
 
       if (this.selectType === 'line') {
-        this.setTitle('Тайтл line')
-        this.setTooltip('')
-        this.setXAxis('category', labels)
-        this.setYAxis('value')
-
-        const series = {
-          name: 'Продажи',
-          type: 'line',
-          data: data
+        this.options = {
+          title: { text: this.title },
+          tooltip: {},
+          xAxis: { type: 'category', data: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'] },
+          yAxis: { type: 'value' },
+          series: [{ name: 'Продажи', type: 'line', data: [120, 200, 150, 80, 70, 110, 130] }],
         }
-        this.seriesInputs = this.getSeriesInputs(labels, data)
-        console.log('seriesInputs', this.seriesInputs)
-
-        this.series = [series]
       } else if (this.selectType === 'bar') {
-        this.setTitle('Тайтл bar')
-        this.setTooltip('axis')
-        this.setXAxis('category', ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'])
-        this.setYAxis('value')
-
-        const series = {
-          name: 'Продажи',
-          type: 'bar',
-          data: [500, 700, 600, 800, 900, 1000, 1100]
+        this.options = {
+          title: { text: this.title },
+          tooltip: { trigger: 'axis' },
+          xAxis: { type: 'category', data: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'] },
+          yAxis: { type: 'value' },
+          series: [{ name: 'Продажи', type: 'bar', data: [500, 700, 600, 800, 900, 1000, 1100] }],
         }
-        this.series = [series]
       } else if (this.selectType === 'pie') {
-        this.setTitle('Тайтл pie', 'center')
-        this.setTooltip('item')
-        this.xAxis = {}
-        this.yAxis = {}
-
-        const data = [
-          { value: 335, name: 'Продукт A' },
-          { value: 310, name: 'Продукт B' },
-          { value: 234, name: 'Продукт C' },
-          { value: 135, name: 'Продукт D' },
-          { value: 1548, name: 'Продукт E' }
-        ]
-
-        const emphasis = { itemStyle: { shadowBlur: 10, shadowOffsetX: 0, shadowColor: 'rgba(0, 0, 0, 0.5)' } }
-        const series = {
-          name: 'Доля рынка',
-          type: 'pie',
-          radius: '50%',
-          data,
-          emphasis
+        this.options = {
+          title: { text: this.title, left: 'center' },
+          tooltip: { trigger: 'item' },
+          series: [{
+            name: 'Доля рынка',
+            type: 'pie',
+            radius: '50%',
+            data: [
+              { value: 335, name: 'Продукт A' },
+              { value: 310, name: 'Продукт B' },
+              { value: 234, name: 'Продукт C' },
+              { value: 135, name: 'Продукт D' },
+              { value: 1548, name: 'Продукт E' },
+            ],
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)',
+              },
+            },
+          }]
         }
-        this.series = [series]
-        this.seriesInputs = data
       } 
     },
     removeItem(index) {
-      this.series[0].data.splice(index, 1)
+      console.log('index', index)
+      if (this.selectType === 'pie') {
+        this.options.series[0].data.splice(index, 1)
+      } else {
+        this.options.series[0].data.splice(index, 1)
+        this.options.xAxis.data.splice(index, 1)
+      }
     },
     addItem(credentials) {
       const { name, value } = credentials
-      this.series[0].data.push({ name, value })
+      if (this.selectType === 'pie') {
+        this.options.series[0].data.push({ name, value })
+      } else {
+        this.options.series[0].data.push(value)
+        this.options.xAxis.data.push(name)
+      }
+    },
+    updateXAxis(newXAxis) {
+      this.options.xAxis.data = newXAxis
+    },
+    updateSeries(newSeries) {
+      this.options.series[0].data = newSeries
     }
   }
 }
-
-
-
-      // if (this.selectType === 'line') {
-      //   this.options = {
-      //     title: { text: this.title },
-      //     tooltip: {},
-      //     xAxis: { type: 'category', data: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'] },
-      //     yAxis: { type: 'value' },
-      //     series: [{ name: 'Продажи', type: 'line', data: [120, 200, 150, 80, 70, 110, 130] }],
-      //   }
-      // } else if (this.selectType === 'bar') {
-      //   this.options = {
-      //     title: { text: this.title },
-      //     tooltip: { trigger: 'axis' },
-      //     xAxis: { type: 'category', data: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'] },
-      //     yAxis: { type: 'value' },
-      //     series: [{ name: 'Продажи', type: 'bar', data: [500, 700, 600, 800, 900, 1000, 1100] }],
-      //   }
-      // } else if (this.selectType === 'pie') {
-      //   this.options = {
-      //     title: { text: this.title, left: 'center' },
-      //     tooltip: { trigger: 'item' },
-      //     series: [{
-      //       name: 'Доля рынка',
-      //       type: 'pie',
-      //       radius: '50%',
-      //       data: [
-      //         { value: 335, name: 'Продукт A' },
-      //         { value: 310, name: 'Продукт B' },
-      //         { value: 234, name: 'Продукт C' },
-      //         { value: 135, name: 'Продукт D' },
-      //         { value: 1548, name: 'Продукт E' },
-      //       ],
-      //       emphasis: {
-      //         itemStyle: {
-      //           shadowBlur: 10,
-      //           shadowOffsetX: 0,
-      //           shadowColor: 'rgba(0, 0, 0, 0.5)',
-      //         },
-      //       },
-      //     }],
-      //   }
-      // }
 </script>
 

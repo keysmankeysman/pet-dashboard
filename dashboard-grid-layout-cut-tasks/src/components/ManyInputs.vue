@@ -1,5 +1,6 @@
 <template>
   <v-container>
+
     <v-row class="mt-2">
       <v-col cols="12" sm="5">
         <v-text-field
@@ -62,39 +63,29 @@
       </v-row>
     </v-container>
     <v-container v-else>
-      <v-row 
-        v-for="(item, index) in seriesData"
-        :key="index"
-        class="mt-2"
-      >
-        <v-col cols="12" sm="5">
-          <v-text-field
-            v-model="item.name"
-            :label="`Название элемента ${index + 1}`"
-            outlined
-          ></v-text-field>
-        </v-col>
-        
-        <v-col cols="12" sm="5">
-          <v-text-field
-            v-model.number="item.value"
-            :label="`значение: ${item.name}`"
-            type="number"
-            outlined
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" sm="1">
-          <v-btn
-            color="error"
-            @click="removeItem(index)"
-          >
-            Удалить элемент
+      <v-row>
+        <v-col v-for="(day, index) in xAxis" :key="index" class="position-static">
+          <v-btn icon @click="removeItem(index)" class="position-absolute bottom-0 right-0">
+            <v-icon>mdi-close</v-icon>
           </v-btn>
+          <v-text-field
+            v-model="xAxis[index]"
+            label="День недели"
+            @input="updateXAxis"
+          />
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col v-for="(value, index) in seriesData" :key="index">
+          <v-text-field
+            v-model="seriesData[index]"
+            label="Продажи"
+            type="number"
+            @input="updateSeries"
+          />
         </v-col>
       </v-row>
     </v-container>
-
-
   </v-container>
 </template>
 
@@ -106,32 +97,42 @@ export default {
       newItemValue: ''
     }
   },
-  props: {
-    seriesData: {
-      type: Array,
-      default: () => [],
-      required: true
-    },
-    selectType: {
-      type: String,
-      default: () => ''
-    },
-  },
   watch: {
     selectType() {
       this.newItemName = ''
       this.newItemValue = ''
     }
   },
-  methods: {
-    removeItem(index) {
-      this.$emit('removeItem', index)
+  props: {
+    selectType: {
+      type: String,
+      default: () => ''
     },
+    xAxis: {
+      type: Array,
+      default: () => []
+    },
+    seriesData: {
+      type: Array,
+      default: () => []
+    }
+  },
+  methods: {
     addItem() {
+      if (!this.newItemName || !this.newItemValue) return 
       this.$emit('addItem', { name: this.newItemName, value: this.newItemValue })
       this.newItemName = ''
       this.newItemValue = ''
     },
+    removeItem (index) {
+      this.$emit('removeItem', index)
+    },
+    updateXAxis() {
+      this.$emit('update:xAxis', this.xAxis)
+    },
+    updateSeries() {
+      this.$emit('update:series', this.seriesData)
+    }
   }
 }
 </script>
