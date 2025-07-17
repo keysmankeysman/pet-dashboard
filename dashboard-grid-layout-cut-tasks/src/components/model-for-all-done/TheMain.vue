@@ -25,6 +25,7 @@
         v-if="selectType"
         :seriesData="series[0].data"
         :selectType="selectType"
+        :xAxis="xAxis.data"
         @addItem="addItem"
         @removeItem="removeItem"
       />
