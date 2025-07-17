@@ -47,7 +47,7 @@
       <v-row>
         <v-col v-for="(value, index) in seriesData" :key="index">
           <v-text-field
-            v-model="series[index]"
+            v-model="seriesData[index]"
             label="Продажи"
             type="number"
             @input="updateSeries"
@@ -77,7 +77,15 @@ export default {
     seriesData: {
       type: Array,
       default: () => []
+    }
+  },
+  methods: {
+    updateXAxis() {
+      this.$emit('update:xAxis', this.xAxis);
     },
+    updateSeries() {
+      this.$emit('update:series', this.series);
+    }
   }
 }
 </script>
