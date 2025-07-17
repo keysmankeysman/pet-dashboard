@@ -20,7 +20,16 @@
             :i="item.i"
             :key="item.i"
             class="grid-item">
-             {{item.i}}
+             
+            <Chart
+                v-if="item.i === 0" 
+                :options="options"
+                :selectType="selectType"
+            />
+            <div v-else>
+                {{ item.i }}
+            </div> 
+
         </grid-item>
     </grid-layout>
   </v-app>
@@ -29,38 +38,57 @@
 <script>
 // import localDiagrams from './diagrams.js'
 import VueGridLayout from 'vue-grid-layout'
+import Chart from './Chart.vue'
 
 export default {
   name: 'grid-layout-vue-lib',
   components: {
         GridLayout: VueGridLayout.GridLayout,
-        GridItem: VueGridLayout.GridItem
+        GridItem: VueGridLayout.GridItem,
+        Chart
   },
   data() {
     return {
+        options: {
+          title: { text: 'График' },
+          tooltip: {},
+          xAxis: { type: 'category', data: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'] },
+          yAxis: { type: 'value' },
+          series: [{ name: 'Продажи', type: 'line', data: [120, 200, 150, 80, 70, 110, 130] }],
+        },
+        selectType: 'line',
         // localDiagrams,
-        layout: [
-            {'x':0,'y':0,'w':2,'h':2,'i':'0'},
-            {'x':2,'y':0,'w':2,'h':4,'i':'1'},
-            {'x':4,'y':0,'w':2,'h':5,'i':'2'},
-            {'x':6,'y':0,'w':2,'h':3,'i':'3'},
-            {'x':8,'y':0,'w':2,'h':3,'i':'4'},
-            {'x':10,'y':0,'w':2,'h':3,'i':'5'},
-            {'x':0,'y':5,'w':2,'h':5,'i':'6'},
-            {'x':2,'y':5,'w':2,'h':5,'i':'7'},
-            {'x':4,'y':5,'w':2,'h':5,'i':'8'},
-            {'x':6,'y':3,'w':2,'h':4,'i':'9'},
-            {'x':8,'y':4,'w':2,'h':4,'i':'10'},
-            {'x':10,'y':4,'w':2,'h':4,'i':'11'},
-            {'x':0,'y':10,'w':2,'h':5,'i':'12'},
-            {'x':2,'y':10,'w':2,'h':5,'i':'13'},
-            {'x':4,'y':8,'w':2,'h':4,'i':'14'},
-            {'x':6,'y':8,'w':2,'h':4,'i':'15'},
-            {'x':8,'y':10,'w':2,'h':5,'i':'16'},
-            {'x':10,'y':4,'w':2,'h':2,'i':'17'},
-            {'x':0,'y':9,'w':2,'h':3,'i':'18'},
-            {'x':2,'y':6,'w':2,'h':2,'i':'19'}
-        ],
+        layout: [{
+            i: 0,
+            x: 0,
+            y: 0,
+            w: 6,
+            h: 6,
+        }, {
+            i: 1,
+            x: 6,
+            y: 0,
+            w: 6,
+            h: 6,
+        }, {
+            i: 2,
+            x: 0,
+            y: 6,
+            w: 6,
+            h: 6,
+        }, {
+            i: 3,
+            x: 6,
+            y: 6,
+            w: 6,
+            h: 6,
+        }, {
+            i: 4,
+            x: 0,
+            y: 12,
+            w: 6,
+            h: 6,
+        }]
     }
   },
   methods: {
