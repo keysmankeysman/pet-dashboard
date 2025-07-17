@@ -42,6 +42,10 @@
         >
         <div :key="item.updateKey" style="height: 100%">
             <div
+              class="text-center align-center"
+              v-bind:style="{ marginTop: (item.h / 2) * 40 + 'px' }"
+            >
+            <!-- <div
               v-if="
                 !$store.state.periodsInt.find((el) => {
                   return item.periodId == el.id;
@@ -49,7 +53,7 @@
               "
               class="text-center align-center"
               v-bind:style="{ marginTop: (item.h / 2) * 40 + 'px' }"
-            >
+            > -->
               <div
                 class="actions"
                 style="position: absolute; top: 3px; right: 3px"
@@ -81,7 +85,7 @@
               ></v-progress-circular>
             </div>
 
-            <DashTable
+            <!-- <DashTable
               :isEdit="isEdit"
               :itemsPerPage="item.data ? item.data.length : 5"
               :tableHeaders="item.headers"
@@ -128,7 +132,7 @@
               v-if="item.graphType === 'pie'"
             />
 
-            <!-- <ApexChart
+            <ApexChart
               :chartSeries="item.series"
               :chartType="item.graphType"
               :height="item.h * 50"
@@ -190,10 +194,10 @@
 import GridLayout from '@/components/DraggableGrid/GridLayout.vue'
 import GridItem from '@/components/DraggableGrid/GridItem.vue'
 import localDiagrams from '@/localData/diagrams.js'
-import DashTable from '@/components/tables/DashTable.vue'
+// import DashTable from '@/components/tables/DashTable.vue'
 
   export default {
-    name: 'Dashboard',
+    name: 'Dashboard2',
     data() {
       return {
         colNum: 12,
@@ -211,8 +215,8 @@ import DashTable from '@/components/tables/DashTable.vue'
     components: {
       GridLayout,
       GridItem,
-      DashTable,
-      Echarts: () => import('@/components/charts/Echarts.vue'),
+      // DashTable,
+      // Echarts: () => import('@/components/charts/Echarts.vue'),
       // ApexChart: () => import('@/components/charts/ApexChart.vue'),
     },
     methods: {

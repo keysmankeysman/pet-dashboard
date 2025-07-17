@@ -25,6 +25,7 @@
       <Chart 
         :options="options"
         :selectType="selectType"
+        :autoresize="false"
       />
 
       <ManyInputs 

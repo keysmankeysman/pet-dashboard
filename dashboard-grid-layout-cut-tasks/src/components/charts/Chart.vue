@@ -1,16 +1,8 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col>
-        <v-card>
-          <v-card-title v-if="!selectType">Диаграмма</v-card-title>
-          <v-card-text>
-              <v-chart class="chart" :option="options" />
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+  <v-card :class="{ 'h100': autoresize }">
+    <v-card-title v-if="!selectType">Диаграмма</v-card-title>
+      <v-chart class="chart" :option="options" :autoresize="autoresize" :class="{ chartHeight: !autoresize }" />
+  </v-card>
 </template>
 
 <script>
@@ -52,13 +44,22 @@ export default defineComponent({
       type: String,
       default: '',
       required: true
+    },
+    autoresize: {
+      type: Boolean,
+      default: true,
+      required: true
     }
   }
 })
 </script>
 
 <style scoped>
-.chart {
+.h100 {
+  height: 100%;
+}
+
+.chartHeight {
   height: 400px;
 }
 </style>
