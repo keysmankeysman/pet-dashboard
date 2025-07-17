@@ -24,7 +24,7 @@
             <Chart 
                 :options="item.options"
                 :key="item.i"
-                :selectType="selectType"
+                :selectType="item.options.series[0].type"
                 :autoresize="true"
             />
             <!-- <div v-else>
