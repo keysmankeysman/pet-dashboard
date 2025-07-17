@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    {{ selectType }}
     <v-container v-if="selectType === 'pie'">
       <v-row 
         v-for="(item, index) in seriesData"
@@ -44,7 +45,7 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col v-for="(value, index) in series" :key="index">
+        <v-col v-for="(value, index) in seriesData" :key="index">
           <v-text-field
             v-model="series[index]"
             label="Продажи"
@@ -60,11 +61,11 @@
 <script>
 export default {
   props: {
-    seriesData: {
-      type: Array,
-      default: () => [],
-      required: true
-    },
+    // seriesData: {
+    //   type: Array,
+    //   default: () => [],
+    //   required: true
+    // },
     selectType: {
       type: String,
       default: () => ''
@@ -73,7 +74,7 @@ export default {
       type: Array,
       default: () => []
     },
-    series: {
+    seriesData: {
       type: Array,
       default: () => []
     },

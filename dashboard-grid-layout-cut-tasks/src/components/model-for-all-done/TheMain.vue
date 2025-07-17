@@ -12,7 +12,7 @@
         @change="selectedItem"
       ></v-select>
 
-      <TestChartBarLast 
+      <Chart 
         :title="title"
         :tooltip="tooltip"
         :xAxis="xAxis"
@@ -23,7 +23,7 @@
 
       <ManyInputs 
         v-if="selectType"
-        :seriesData="seriesInputs"
+        :seriesData="series[0].data"
         :selectType="selectType"
         @addItem="addItem"
         @removeItem="removeItem"
@@ -38,13 +38,8 @@
 export default {
   name: 'Redactor',
   components: {
-    // Echarts: () => import('@/components/charts/EchartsCut.vue'),
-    // EchartsII: () => import('@/components/charts/EchartsII.vue'),
-    TestChartBarLast: () => import('@/components/TestChartBarLast.vue'),
-    ManyInputs: () => import('@/components/ManyInputs.vue'),
-    // TestChartBar: () => import('@/components/TestChartBar.vue'),
-    // TestChartLinear: () => import('@/components/TestChartLinear.vue'),
-    // TestChartPie: () => import('@/components/TestChartPie.vue'),
+    Chart: () => import('./Chart.vue'),
+    ManyInputs: () => import('./ManyInputs.vue'),
   },
   data() {
     return {
@@ -61,7 +56,6 @@ export default {
       ],
       selectType: '',
       selectedSeriesItem: null,
-      seriesInputs: [],
       item: {
         dashboardId: 29,
         diagramId: 81,
@@ -118,12 +112,6 @@ export default {
       this.yAxis = {}
       this.yAxis.type = type
     },
-    getSeriesInputs(labels, values) {
-      return labels.map((label, index) => ({
-        name: label,
-        value: values[index]
-      }))
-    },
     selectedItem() {
       this.series = []
       const labels = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
@@ -135,27 +123,22 @@ export default {
         this.setXAxis('category', labels)
         this.setYAxis('value')
 
-        const series = {
+        this.series = [{
           name: 'Продажи',
           type: 'line',
           data: data
-        }
-        this.seriesInputs = this.getSeriesInputs(labels, data)
-        console.log('seriesInputs', this.seriesInputs)
-
-        this.series = [series]
+        }]
       } else if (this.selectType === 'bar') {
         this.setTitle('Тайтл bar')
         this.setTooltip('axis')
         this.setXAxis('category', ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'])
         this.setYAxis('value')
 
-        const series = {
+        this.series = [{
           name: 'Продажи',
           type: 'bar',
           data: [500, 700, 600, 800, 900, 1000, 1100]
-        }
-        this.series = [series]
+        }]
       } else if (this.selectType === 'pie') {
         this.setTitle('Тайтл pie', 'center')
         this.setTooltip('item')
@@ -171,15 +154,13 @@ export default {
         ]
 
         const emphasis = { itemStyle: { shadowBlur: 10, shadowOffsetX: 0, shadowColor: 'rgba(0, 0, 0, 0.5)' } }
-        const series = {
+        this.series = [{
           name: 'Доля рынка',
           type: 'pie',
           radius: '50%',
           data,
           emphasis
-        }
-        this.series = [series]
-        this.seriesInputs = data
+        }]
       } 
     },
     removeItem(index) {
