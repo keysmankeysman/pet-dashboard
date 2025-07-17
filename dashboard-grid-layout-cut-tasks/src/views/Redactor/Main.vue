@@ -1,10 +1,10 @@
 <template>
   <v-app class="app-background--primary">
     <div data-app>
-      
+
       <v-toolbar>
         <v-spacer></v-spacer>
-        <v-btn color="primary" class="mr-5">
+        <v-btn @click="addToDashboard" :disabled="!selectType" color="primary" class="mr-5">
           Добавить диаграмму на дашборд
         </v-btn>
         <v-btn>
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import Chart from '@/components/charts/Echarts.vue'
+import Chart from '@/components/charts/Chart.vue'
 import ManyInputs from '@/components/ManyInputs.vue'
 
 export default {
@@ -68,28 +68,30 @@ export default {
       ],
       selectType: '',
       selectedSeriesItem: null,
-      item: {
+      item: {}
+    }
+  },
+  methods: {
+    addToDashboard() {
+      console.log('this.options', this.options)
+
+      this.item = {
         dashboardId: 29,
         diagramId: 81,
-        draggable: true,
         h: 3,
-        hasDataLabels: false,
-        hasLabels: true,
-        hasLegend: false,
         i: 2,
         id: 61,
         legendPosition: 'left',
         name: '15 график',
         order: 2,
-        resizable: true,
-        static: false,
+
+        graphType: 'pie',
         typeId: 5,
+
         w: 5,
         x: 0,
         y: 3,
-        graphType: 'pie',
-        dateFrom: '27.11.2022 00:00:00',
-        dateTo: '01.01.2022 00:00:00',
+
         title: {
           text: 'Круговая диаграмма',
           left: 'center'
@@ -103,9 +105,8 @@ export default {
         },
         series: []
       }
-    }
-  },
-  methods: {
+
+    },
     selectedItem() {
       this.options = {}
 

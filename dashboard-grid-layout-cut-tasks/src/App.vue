@@ -13,15 +13,15 @@
         <TestChartLinear />
     </v-main> -->
     <v-main>
-      <router-view></router-view>
-      <!-- <the-main /> -->
+      <!-- <router-view></router-view> -->
+      <the-main />
     </v-main>
   </v-app>
 </template>
 
 <script>
-// import TheMain from '@/components/model-for-all-done/TheMain.vue'
-// import TheMain from '@/components/model-for-all-diagrams-line-i-original/TheMain.vue'
+import TheMain from '@/components/task-vue-grid-layout-lib/TheMain.vue'
+// import TheMain from '@/components/task-layout/TheMain.vue'
 import Aside from '@/components/Aside.vue'
 // import Header from '@/components/Header.vue'
 
@@ -37,7 +37,7 @@ export default {
   components: {
     // Header,
     Aside,
-    // TheMain
+    TheMain
   }
 }
 </script>

@@ -14,6 +14,7 @@
     "one-colorpicker": "^1.0.12",
     "vue": "^2.6.11",
     "vue-echarts": "^6.0.0",
+    "vue-grid-layout": "^2.4.0",
     "vue-json-excel": "^0.3.0",
     "vue-router": "^3.2.0",
     "vuetify": "^2.6.0",
