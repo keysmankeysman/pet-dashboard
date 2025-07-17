@@ -114,10 +114,11 @@ export default {
     },
     selectedItem() {
       this.series = []
-      const labels = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
-      const data = [120, 200, 150, 80, 70, 110, 130]
 
       if (this.selectType === 'line') {
+        const labels = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
+        const data = [120, 200, 150, 80, 70, 110, 130]
+
         this.setTitle('Тайтл line')
         this.setTooltip('')
         this.setXAxis('category', labels)
@@ -125,19 +126,22 @@ export default {
 
         this.series = [{
           name: 'Продажи',
-          type: 'line',
+          type: this.selectType,
           data: data
         }]
       } else if (this.selectType === 'bar') {
+        const labels = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл']
+        const data = [500, 700, 600, 800, 900, 1000, 1100]
+
         this.setTitle('Тайтл bar')
         this.setTooltip('axis')
-        this.setXAxis('category', ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'])
+        this.setXAxis('category', labels)
         this.setYAxis('value')
 
         this.series = [{
           name: 'Продажи',
-          type: 'bar',
-          data: [500, 700, 600, 800, 900, 1000, 1100]
+          type: this.selectType,
+          data: data
         }]
       } else if (this.selectType === 'pie') {
         this.setTitle('Тайтл pie', 'center')
@@ -156,7 +160,7 @@ export default {
         const emphasis = { itemStyle: { shadowBlur: 10, shadowOffsetX: 0, shadowColor: 'rgba(0, 0, 0, 0.5)' } }
         this.series = [{
           name: 'Доля рынка',
-          type: 'pie',
+          type: this.selectType,
           radius: '50%',
           data,
           emphasis
