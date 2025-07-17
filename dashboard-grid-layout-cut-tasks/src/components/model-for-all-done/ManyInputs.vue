@@ -64,7 +64,10 @@
     </v-container>
     <v-container v-else>
       <v-row>
-        <v-col v-for="(day, index) in xAxis" :key="index">
+        <v-col v-for="(day, index) in xAxis" :key="index" class="position-static">
+          <v-btn icon @click="removeItem(index)" class="position-absolute bottom-0 right-0">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
           <v-text-field
             v-model="xAxis[index]"
             label="День недели"
@@ -116,6 +119,7 @@ export default {
   },
   methods: {
     addItem() {
+      if (!this.newItemName || !this.newItemValue) return 
       this.$emit('addItem', { name: this.newItemName, value: this.newItemValue })
       this.newItemName = ''
       this.newItemValue = ''

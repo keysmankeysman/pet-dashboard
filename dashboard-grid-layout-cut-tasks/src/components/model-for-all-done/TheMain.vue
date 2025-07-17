@@ -195,7 +195,13 @@ export default {
     //   } 
     },
     removeItem(index) {
-      this.options.series[0].data.splice(index, 1)
+      console.log('index', index)
+      if (this.selectType === 'pie') {
+        this.options.series[0].data.splice(index, 1)
+      } else {
+        this.options.series[0].data.splice(index, 1)
+        this.options.xAxis.data.splice(index, 1)
+      }
     },
     addItem(credentials) {
       const { name, value } = credentials
@@ -204,8 +210,6 @@ export default {
       } else {
         this.options.series[0].data.push(value)
         this.options.xAxis.data.push(name)
-        // :seriesData="options.series[0].data"
-        // :xAxis="options.xAxis?.data"
       }
     },
     updateXAxis(newXAxis) {
