@@ -5,7 +5,7 @@
         <v-card>
           <v-card-title v-if="!selectType">Диаграмма</v-card-title>
           <v-card-text>
-              <v-chart class="chart" :option="getOptions" />
+              <v-chart class="chart" :option="options" />
           </v-card-text>
         </v-card>
       </v-col>
@@ -43,57 +43,15 @@ export default defineComponent({
     VChart
   },
   props: {
-    title: {
+    options: {
       type: Object,
       default: () => {},
-      required: true
-    },
-    tooltip: {
-      type: Object,
-      default: () => {},
-      required: true
-    },
-    xAxis: {
-      type: Object,
-      default: () => {},
-      required: true
-    },
-    yAxis: {
-      type: Object,
-      default: () => {},
-      required: true
-    },
-    series: {
-      type: Array,
-      default: () => [],
       required: true
     },
     selectType: {
       type: String,
-      default: () => '',
+      default: '',
       required: true
-    }
-  },
-  data() {
-    return { }
-  },
-  computed: {
-    getOptions() {
-      if (!this.selectType) return {}
-      if (this.selectType === 'pie') {
-        return {
-          title: this.title,
-          tooltip: this.tooltip,
-          series: this.series,
-        }
-      }
-      return {
-        title: this.title,
-        tooltip: this.tooltip,
-        xAxis: this.xAxis,
-        yAxis: this.yAxis,
-        series: this.series,
-      }
     }
   }
 })

@@ -1,6 +1,34 @@
 <template>
   <v-container>
-    {{ selectType }}
+
+    <v-row class="mt-2">
+      <v-col cols="12" sm="5">
+        <v-text-field
+          v-model="newItemName"
+          label="Название"
+          outlined
+        ></v-text-field>
+      </v-col>
+      
+      <v-col cols="12" sm="5">
+        <v-text-field
+          v-model.number="newItemValue"
+          label="Значение"
+          type="number"
+          outlined
+        ></v-text-field>
+      </v-col>
+      <v-col cols="12" sm="1">
+        <v-btn
+          color="primary"
+          class="mr-2"
+          @click="addItem()"
+        >
+          Добавить элемент
+        </v-btn>
+      </v-col>
+    </v-row>
+
     <v-container v-if="selectType === 'pie'">
       <v-row 
         v-for="(item, index) in seriesData"
@@ -60,12 +88,19 @@
 
 <script>
 export default {
+  data() {
+    return {
+      newItemName: '',
+      newItemValue: ''
+    }
+  },
+  watch: {
+    selectType() {
+      this.newItemName = ''
+      this.newItemValue = ''
+    }
+  },
   props: {
-    // seriesData: {
-    //   type: Array,
-    //   default: () => [],
-    //   required: true
-    // },
     selectType: {
       type: String,
       default: () => ''
@@ -80,11 +115,19 @@ export default {
     }
   },
   methods: {
+    addItem() {
+      this.$emit('addItem', { name: this.newItemName, value: this.newItemValue })
+      this.newItemName = ''
+      this.newItemValue = ''
+    },
+    removeItem (index) {
+      this.$emit('removeItem', index)
+    },
     updateXAxis() {
-      this.$emit('update:xAxis', this.xAxis);
+      this.$emit('update:xAxis', this.xAxis)
     },
     updateSeries() {
-      this.$emit('update:series', this.series);
+      this.$emit('update:series', this.seriesData)
     }
   }
 }

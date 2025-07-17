@@ -19,8 +19,8 @@
 </template>
 
 <script>
-// import TheMain from '@/components/model-for-all-done/TheMain.vue'
 import TheMain from '@/components/model-for-all-done/TheMain.vue'
+// import TheMain from '@/components/model-for-all-diagrams-line-i-original/TheMain.vue'
 import Aside from '@/components/Aside.vue'
 import Header from '@/components/Header.vue'
 
