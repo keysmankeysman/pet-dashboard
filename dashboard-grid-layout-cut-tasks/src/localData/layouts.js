@@ -4,7 +4,7 @@ export default [
     x: 0,
     y: 0,
     w: 6,
-    h: 6,
+    h: 8,
     options: {
         title: { text: 'График линейный' },
         tooltip: {},
@@ -18,7 +18,7 @@ export default [
     x: 6,
     y: 0,
     w: 6,
-    h: 6,
+    h: 8,
     options: {
         title: { text: 'График бар' },
         tooltip: { trigger: 'axis' },
@@ -32,7 +32,7 @@ export default [
     x: 0,
     y: 6,
     w: 6,
-    h: 6,
+    h: 8,
     options: {
         title: { text: 'График круглый', left: 'center' },
         tooltip: { trigger: 'item' },
@@ -62,7 +62,7 @@ export default [
     x: 6,
     y: 6,
     w: 6,
-    h: 6,
+    h: 8,
     options: {
         title: { text: 'График линейный' },
         tooltip: {},
@@ -76,7 +76,7 @@ export default [
     x: 0,
     y: 12,
     w: 6,
-    h: 6,
+    h: 8,
     options: {
         title: { text: 'График линейный' },
         tooltip: {},

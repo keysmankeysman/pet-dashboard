@@ -4,7 +4,7 @@
 
       <v-toolbar>
         <v-spacer></v-spacer>
-        <v-btn @click="addToDashboard" :disabled="!selectType" color="primary" class="mr-5">
+        <v-btn @click="handleAddToDashboard" :disabled="!selectType" color="primary" class="mr-5">
           Добавить диаграмму на дашборд
         </v-btn>
         <v-btn>
@@ -32,9 +32,14 @@
         v-if="selectType"
         :seriesData="options.series[0].data"
         :xAxis="options.xAxis?.data"
+
+        :title="options.title.text"
+        
+
         :selectType="selectType"
         @addItem="addItem"
         @removeItem="removeItem"
+        @update:title="updateTitle"
         @update:xAxis="updateXAxis"
         @update:series="updateSeries"
       />
@@ -46,6 +51,7 @@
 <script>
 import Chart from '@/components/charts/Chart.vue'
 import ManyInputs from '@/components/ManyInputs.vue'
+import { EventBus } from '@/plugins/eventBus.js'
 
 export default {
   name: 'Redactor',
@@ -56,7 +62,6 @@ export default {
   data() {
     return {
       options: {},
-      title: 'График',
       tooltip: {},
       xAxis: {},
       yAxis: {},
@@ -73,47 +78,32 @@ export default {
     }
   },
   methods: {
-    addToDashboard() {
-      console.log('this.options', this.options)
-
+    randomInteger(min, max) {
+      let rand = min + Math.random() * (max + 1 - min)
+      return Math.floor(rand)
+    },
+    handleAddToDashboard() {
       this.item = {
-        dashboardId: 29,
-        diagramId: 81,
-        h: 3,
-        i: 2,
-        id: 61,
-        legendPosition: 'left',
-        name: '15 график',
-        order: 2,
-
-        graphType: 'pie',
-        typeId: 5,
-
-        w: 5,
+        i: this.randomInteger(100, 1000),
         x: 0,
-        y: 3,
-
-        title: {
-          text: 'Круговая диаграмма',
-          left: 'center'
-        },
-        tooltip: {
-          trigger: 'item'
-        },
-        legend: {
-          orient: 'vertical',
-          left: 'left'
-        },
-        series: []
+        y: 6,
+        w: 6,
+        h: 6,
+        options: this.options
       }
+      this.$router.push('/dashboard')
+      EventBus.$emit('addToDashboard', this.item)
 
+    },
+    beforeDestroy() {
+      EventBus.$off('addToDashboard', this.handleAddToDashboard)
     },
     selectedItem() {
       this.options = {}
 
       if (this.selectType === 'line') {
         this.options = {
-          title: { text: this.title },
+          title: { text: '' },
           tooltip: {},
           xAxis: { type: 'category', data: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'] },
           yAxis: { type: 'value' },
@@ -121,7 +111,7 @@ export default {
         }
       } else if (this.selectType === 'bar') {
         this.options = {
-          title: { text: this.title },
+          title: { text: '' },
           tooltip: { trigger: 'axis' },
           xAxis: { type: 'category', data: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'] },
           yAxis: { type: 'value' },
@@ -129,7 +119,7 @@ export default {
         }
       } else if (this.selectType === 'pie') {
         this.options = {
-          title: { text: this.title, left: 'center' },
+          title: { text: '', left: 'center' },
           tooltip: { trigger: 'item' },
           series: [{
             name: 'Доля рынка',
@@ -154,7 +144,6 @@ export default {
       } 
     },
     removeItem(index) {
-      console.log('index', index)
       if (this.selectType === 'pie') {
         this.options.series[0].data.splice(index, 1)
       } else {
@@ -170,6 +159,9 @@ export default {
         this.options.series[0].data.push(value)
         this.options.xAxis.data.push(name)
       }
+    },
+    updateTitle(newTitle) {
+      this.options.title.text = newTitle
     },
     updateXAxis(newXAxis) {
       this.options.xAxis.data = newXAxis

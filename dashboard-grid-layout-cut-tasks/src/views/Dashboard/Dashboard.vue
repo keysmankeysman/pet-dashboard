@@ -41,6 +41,7 @@
 import localLayouts from '@/localData/layouts.js'
 import VueGridLayout from 'vue-grid-layout'
 import Chart from '@/components/charts/Chart.vue'
+import { EventBus } from '@/plugins/eventBus.js'
 
 export default {
   name: 'grid-layout-vue-lib',
@@ -48,6 +49,11 @@ export default {
         GridLayout: VueGridLayout.GridLayout,
         GridItem: VueGridLayout.GridItem,
         Chart
+  },
+  mounted() {
+    EventBus.$on('addToDashboard', (newItem) => {
+        this.layout.push(newItem)
+    })
   },
   data() {
     return {

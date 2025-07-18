@@ -20,7 +20,7 @@ const routes = [
   {
     path: '/redactor',
     name: 'Redactor',
-    component: () => import('@/views/Redactor/Main.vue')
+    component: () => import('@/views/Redactor/Redactor.vue')
   },
   // в реальном времени
   {

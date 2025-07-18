@@ -4,6 +4,17 @@
     <v-row class="mt-2">
       <v-col cols="12" sm="5">
         <v-text-field
+          v-model="modelTitle" 
+          label="Название Графика"
+          @input="updateTitle"
+          outlined
+        ></v-text-field>
+      </v-col>
+    </v-row>
+
+    <v-row class="mt-2">
+      <v-col cols="12" sm="5">
+        <v-text-field
           v-model="newItemName"
           label="Название"
           outlined
@@ -94,13 +105,17 @@ export default {
   data() {
     return {
       newItemName: '',
-      newItemValue: ''
+      newItemValue: '',
+      modelTitle: ''
     }
   },
   watch: {
     selectType() {
       this.newItemName = ''
       this.newItemValue = ''
+    },
+    title(newTitle) {
+      this.modelTitle = newTitle
     }
   },
   props: {
@@ -112,12 +127,19 @@ export default {
       type: Array,
       default: () => []
     },
+    title: {
+      type: String,
+      default: () => ''
+    },
     seriesData: {
       type: Array,
       default: () => []
     }
   },
   methods: {
+    updateTitle() {
+      this.$emit('update:title', this.modelTitle)
+    },
     addItem() {
       if (!this.newItemName || !this.newItemValue) return 
       this.$emit('addItem', { name: this.newItemName, value: this.newItemValue })
