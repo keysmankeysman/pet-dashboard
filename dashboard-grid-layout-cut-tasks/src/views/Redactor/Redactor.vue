@@ -34,12 +34,13 @@
         :xAxis="options.xAxis?.data"
 
         :title="options.title.text"
-        
+        :smooth="options.series[0].smooth"
 
         :selectType="selectType"
         @addItem="addItem"
         @removeItem="removeItem"
         @update:title="updateTitle"
+        @update:smooth="updateSmooth"
         @update:xAxis="updateXAxis"
         @update:series="updateSeries"
       />
@@ -107,7 +108,7 @@ export default {
           tooltip: {},
           xAxis: { type: 'category', data: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'] },
           yAxis: { type: 'value' },
-          series: [{ name: 'Продажи', type: 'line', data: [120, 200, 150, 80, 70, 110, 130] }],
+          series: [{ name: 'Продажи', type: 'line', data: [120, 200, 150, 80, 70, 110, 130], smooth: true }],
         }
       } else if (this.selectType === 'bar') {
         this.options = {
@@ -162,6 +163,9 @@ export default {
     },
     updateTitle(newTitle) {
       this.options.title.text = newTitle
+    },
+    updateSmooth(newSmooth) {
+      this.options.series[0].smooth = newSmooth
     },
     updateXAxis(newXAxis) {
       this.options.xAxis.data = newXAxis

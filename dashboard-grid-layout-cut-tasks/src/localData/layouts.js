@@ -6,7 +6,7 @@ export default [
     w: 6,
     h: 8,
     options: {
-        title: { text: 'График линейный' },
+        title: { text: 'График линейный 1' },
         tooltip: {},
         xAxis: { type: 'category', data: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'] },
         yAxis: { type: 'value' },
@@ -64,7 +64,7 @@ export default [
     w: 6,
     h: 8,
     options: {
-        title: { text: 'График линейный' },
+        title: { text: 'График линейный 2' },
         tooltip: {},
         xAxis: { type: 'category', data: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'] },
         yAxis: { type: 'value' },
@@ -78,7 +78,7 @@ export default [
     w: 6,
     h: 8,
     options: {
-        title: { text: 'График линейный' },
+        title: { text: 'График линейный 3' },
         tooltip: {},
         xAxis: { type: 'category', data: ['Янв', 'Фев', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль'] },
         yAxis: { type: 'value' },

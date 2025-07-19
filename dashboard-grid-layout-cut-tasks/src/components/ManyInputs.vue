@@ -9,6 +9,15 @@
           @input="updateTitle"
           outlined
         ></v-text-field>
+
+        <!-- чекбокс smooth -->
+        <v-checkbox
+          v-model="modelSmooth"
+          label="Сгладить линии"
+          :value="smooth"
+          @change="updateSmooth"
+        ></v-checkbox>
+
       </v-col>
     </v-row>
 
@@ -106,7 +115,8 @@ export default {
     return {
       newItemName: '',
       newItemValue: '',
-      modelTitle: ''
+      modelTitle: '',
+      modelSmooth: false,
     }
   },
   watch: {
@@ -114,9 +124,12 @@ export default {
       this.newItemName = ''
       this.newItemValue = ''
     },
-    title(newTitle) {
-      this.modelTitle = newTitle
-    }
+    title(newVal) {
+      this.modelTitle = newVal
+    },
+    smooth(newVal) {
+      this.modelSmooth = newVal
+    },
   },
   props: {
     selectType: {
@@ -131,6 +144,10 @@ export default {
       type: String,
       default: () => ''
     },
+    smooth: {
+      type: Boolean,
+      default: () => false
+    },
     seriesData: {
       type: Array,
       default: () => []
@@ -139,6 +156,10 @@ export default {
   methods: {
     updateTitle() {
       this.$emit('update:title', this.modelTitle)
+    },
+    updateSmooth() {
+      console.log('this.modelSmooth', this.modelSmooth)
+      this.$emit('update:smooth', this.modelSmooth)
     },
     addItem() {
       if (!this.newItemName || !this.newItemValue) return 
