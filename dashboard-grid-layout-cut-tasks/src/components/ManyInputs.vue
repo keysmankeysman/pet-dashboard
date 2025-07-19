@@ -10,13 +10,19 @@
           outlined
         ></v-text-field>
 
-        <!-- чекбокс smooth -->
         <v-checkbox
           v-model="modelSmooth"
           label="Сгладить линии"
           :value="modelSmooth"
           @change="updateSmooth"
         ></v-checkbox>
+
+        <v-text-field
+          v-model.number="modelLineWidth" 
+          label="Ширина линии"
+          @input="updateLineWidth"
+          outlined
+        ></v-text-field>
 
       </v-col>
     </v-row>
@@ -116,6 +122,7 @@ export default {
       newItemName: '',
       newItemValue: '',
       modelTitle: '',
+      modelLineWidth: this.lineWidth,
       modelSmooth: this.smooth,
     }
   },
@@ -130,6 +137,9 @@ export default {
     smooth(newVal) {
       this.modelSmooth = newVal
     },
+    lineWidth(newVal) {
+      this.modelLineWidth = newVal
+    }
   },
   props: {
     selectType: {
@@ -144,6 +154,10 @@ export default {
       type: String,
       default: () => ''
     },
+    lineWidth: {
+      type: Number,
+      default: () => null
+    },
     smooth: {
       type: Boolean,
       default: () => false
@@ -157,8 +171,10 @@ export default {
     updateTitle() {
       this.$emit('update:title', this.modelTitle)
     },
+    updateLineWidth() {
+      this.$emit('update:lineWidth', this.modelLineWidth)
+    },
     updateSmooth() {
-      console.log('this.modelSmooth', this.modelSmooth)
       this.$emit('update:smooth', this.modelSmooth)
     },
     addItem() {
