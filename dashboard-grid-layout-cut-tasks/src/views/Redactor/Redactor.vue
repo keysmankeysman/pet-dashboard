@@ -35,13 +35,19 @@
 
         :title="options.title.text"
         :lineWidth="options.series[0]?.lineStyle?.width"
+        :lineColor="options.series[0]?.lineStyle?.color"
+        :dotColor="options.series[0]?.itemStyle?.color"
         :smooth="options.series[0].smooth"
 
         :selectType="selectType"
         @addItem="addItem"
         @removeItem="removeItem"
+
         @update:title="updateTitle"
         @update:lineWidth="updateLineWidth"
+        @update:lineColor="updateLineColor"
+        @update:dotColor="updateDotColor"
+        
         @update:smooth="updateSmooth"
         @update:xAxis="updateXAxis"
         @update:series="updateSeries"
@@ -110,7 +116,7 @@ export default {
           tooltip: {},
           xAxis: { type: 'category', data: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'] },
           yAxis: { type: 'value' },
-          series: [{ name: 'Продажи', type: 'line', data: [120, 200, 150, 80, 70, 110, 130], smooth: true, lineStyle: { width: 3, color: '#4285F4'}, }],
+          series: [{ name: 'Продажи', type: 'line', data: [120, 200, 150, 80, 70, 110, 130], smooth: true, lineStyle: { width: 3, color: '#4285F4'}, itemStyle: { color: '#eeeeee' } }],
           // series: [{ name: 'Продажи', type: 'line', data: [120, 200, 150, 80, 70, 110, 130], smooth: true }],
         }
       } else if (this.selectType === 'bar') {
@@ -169,6 +175,12 @@ export default {
     },
     updateLineWidth(lineWidth) {
       this.options.series[0].lineStyle.width = lineWidth
+    },
+    updateLineColor(lineColor) {
+      this.options.series[0].lineStyle.color = lineColor
+    },
+    updateDotColor(dotColor) {
+      this.options.series[0].itemStyle.color = dotColor
     },
     updateSmooth(newSmooth) {
       this.options.series[0].smooth = newSmooth

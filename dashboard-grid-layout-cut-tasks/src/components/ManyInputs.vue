@@ -20,9 +20,29 @@
         <v-text-field
           v-model.number="modelLineWidth" 
           label="Ширина линии"
+          type="number"
+          :rules="[rules.min, rules.max, rules.required]" 
           @input="updateLineWidth"
           outlined
         ></v-text-field>
+      </v-col>
+      <v-col cols="12" sm="5">
+
+        Цвет линии
+        <v-color-picker
+          v-model="modelLineColor"
+          label="Выберите цвет линии"
+          @input="updateLineColor"
+          hide-inputs
+        ></v-color-picker>
+
+        Цвет точек
+        <v-color-picker
+          v-model="modelDotColor"
+          label="Выберите цвет точки"
+          @input="updateDotColor"
+          hide-inputs
+        ></v-color-picker>
 
       </v-col>
     </v-row>
@@ -119,10 +139,17 @@
 export default {
   data() {
     return {
+      rules: {
+        required: value => !!value || 'Required.',
+        min: value => value >= 1 || 'Ширина линии не может быть меньше 1',
+        max: value => value <= 10 || 'Ширина линии не может быть больше 10',
+      },
       newItemName: '',
       newItemValue: '',
       modelTitle: '',
       modelLineWidth: this.lineWidth,
+      modelLineColor: this.lineColor,
+      modelDotColor: this.dotColor,
       modelSmooth: this.smooth,
     }
   },
@@ -158,6 +185,14 @@ export default {
       type: Number,
       default: () => null
     },
+    lineColor: {
+      type: String,
+      default: () => ''
+    },
+    dotColor: {
+      type: String,
+      default: () => ''
+    },
     smooth: {
       type: Boolean,
       default: () => false
@@ -173,6 +208,12 @@ export default {
     },
     updateLineWidth() {
       this.$emit('update:lineWidth', this.modelLineWidth)
+    },
+    updateLineColor() {
+      this.$emit('update:lineColor', this.modelLineColor)
+    },
+    updateDotColor() {
+      this.$emit('update:dotColor', this.modelDotColor)
     },
     updateSmooth() {
       this.$emit('update:smooth', this.modelSmooth)
