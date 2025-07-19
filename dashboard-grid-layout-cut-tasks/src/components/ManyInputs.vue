@@ -5,12 +5,13 @@
       <v-col cols="12" sm="5">
         <v-text-field
           v-model="modelTitle" 
-          label="Название Графика"
+          label="Название Графикаааа"
           @input="updateTitle"
           outlined
         ></v-text-field>
 
         <v-checkbox
+          v-if="selectType === 'line'"
           v-model="modelSmooth"
           label="Сгладить линии"
           :value="modelSmooth"
@@ -18,6 +19,7 @@
         ></v-checkbox>
 
         <v-text-field
+          v-if="selectType === 'line'"
           v-model.number="modelLineWidth" 
           label="Ширина линии"
           type="number"
@@ -30,6 +32,7 @@
 
         Цвет линии
         <v-color-picker
+          v-if="['line'].includes(selectType)"
           v-model="modelLineColor"
           label="Выберите цвет линии"
           @input="updateLineColor"
@@ -38,6 +41,7 @@
 
         Цвет точек
         <v-color-picker
+          v-if="['line','bar'].includes(selectType)"
           v-model="modelDotColor"
           label="Выберите цвет точки"
           @input="updateDotColor"
@@ -151,6 +155,7 @@ export default {
       modelLineColor: this.lineColor,
       modelDotColor: this.dotColor,
       modelSmooth: this.smooth,
+      allowInputTypes: ['line', 'pie', 'bar'] 
     }
   },
   watch: {

@@ -29,6 +29,60 @@ export default [
 }, 
 {
     i: 2,
+    x: 6,
+    y: 0,
+    w: 6,
+    h: 8,
+    options: {
+        title: { text: 'Доходы и расходы 2023' },
+        tooltip: { trigger: 'axis' },
+        legend: { data: ['Доходы', 'Расходы'], left: 'right'},
+        xAxis: {
+        type: 'category',
+        data: ['1 кв.', '2 кв.', '3 кв.', '4 кв.']},
+        yAxis: { type: 'value' },
+        series: [
+        {
+            name: 'Доходы',
+            type: 'bar',
+            data: [150000, 180000, 210000, 190000],
+            itemStyle: { color: '#2196F3' },
+        },
+        {
+            name: 'Расходы',
+            type: 'bar',
+            data: [80000, 95000, 110000, 105000],
+            itemStyle: { color: '#F44336' },
+        }]
+    },
+}, 
+{
+    i: 3,
+    x: 6,
+    y: 0,
+    w: 6,
+    h: 8,
+    options: {
+    title: { text: 'Население городов (млн)' },
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+    grid: { left: '20%' }, // Для длинных подписей
+    xAxis: { type: 'value' },
+    yAxis: {
+        type: 'category',
+        data: ['Москва', 'Санкт-Петербург', 'Новосибирск', 'Екатеринбург'],
+    },
+    series: [
+        {
+            type: 'bar',
+            data: [12.6, 5.4, 1.6, 1.5],
+            itemStyle: { color: '#9C27B0' },
+            label: { show: true, position: 'right' },
+        },
+    ],
+    },
+}, 
+{
+    i: 4,
     x: 0,
     y: 6,
     w: 6,
@@ -58,7 +112,7 @@ export default [
     }
 },
 {
-    i: 3,
+    i: 5,
     x: 6,
     y: 6,
     w: 6,
@@ -72,7 +126,7 @@ export default [
     }
 }, 
 {
-    i: 4,
+    i: 6,
     x: 0,
     y: 12,
     w: 6,

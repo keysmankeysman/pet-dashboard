@@ -2,6 +2,8 @@
   <v-app class="app-background--primary">
     <div data-app>
 
+      <!-- <TheMain></TheMain> -->
+
       <v-toolbar>
         <v-spacer></v-spacer>
         <v-btn @click="handleAddToDashboard" :disabled="!selectType" color="primary" class="mr-5">
@@ -58,6 +60,7 @@
 </template>
 
 <script>
+// import TheMain from '@/components/task-temporary/TheMain.vue'
 import Chart from '@/components/charts/Chart.vue'
 import ManyInputs from '@/components/ManyInputs.vue'
 import { EventBus } from '@/plugins/eventBus.js'
@@ -66,7 +69,8 @@ export default {
   name: 'Redactor',
   components: {
     ManyInputs,
-    Chart
+    Chart,
+    // TheMain
   },
   data() {
     return {
@@ -121,12 +125,36 @@ export default {
         }
       } else if (this.selectType === 'bar') {
         this.options = {
-          title: { text: '' },
+          title: { text: 'Доходы и расходы 2023' },
           tooltip: { trigger: 'axis' },
-          xAxis: { type: 'category', data: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'] },
+          legend: { data: ['Доходы', 'Расходы'] },
+          xAxis: {
+            type: 'category',
+            data: ['1 кв.', '2 кв.', '3 кв.', '4 кв.'],
+          },
           yAxis: { type: 'value' },
-          series: [{ name: 'Продажи', type: 'bar', data: [500, 700, 600, 800, 900, 1000, 1100] }],
+          series: [
+            {
+              name: 'Доходы',
+              type: 'bar',
+              data: [150000, 180000, 210000, 190000],
+              itemStyle: { color: '#2196F3' },
+            },
+            {
+              name: 'Расходы',
+              type: 'bar',
+              data: [80000, 95000, 110000, 105000],
+              itemStyle: { color: '#F44336' },
+            },
+          ],
         }
+        // this.options = {
+        //   title: { text: '' },
+        //   tooltip: { trigger: 'axis' },
+        //   xAxis: { type: 'category', data: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'] },
+        //   yAxis: { type: 'value' },
+        //   series: [{ name: 'Продажи', type: 'bar', data: [500, 700, 600, 800, 900, 1000, 1100] }],
+        // }
       } else if (this.selectType === 'pie') {
         this.options = {
           title: { text: '', left: 'center' },
