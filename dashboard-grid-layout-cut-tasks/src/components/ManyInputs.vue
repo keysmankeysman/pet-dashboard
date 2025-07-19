@@ -14,7 +14,7 @@
         <v-checkbox
           v-model="modelSmooth"
           label="Сгладить линии"
-          :value="smooth"
+          :value="modelSmooth"
           @change="updateSmooth"
         ></v-checkbox>
 
@@ -116,7 +116,7 @@ export default {
       newItemName: '',
       newItemValue: '',
       modelTitle: '',
-      modelSmooth: false,
+      modelSmooth: this.smooth,
     }
   },
   watch: {
