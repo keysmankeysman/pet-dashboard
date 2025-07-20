@@ -25,6 +25,7 @@
       ></v-select>
 
       <Chart 
+        :key="updateKey"
         :options="options"
         :selectType="selectType"
         :autoresize="false"
@@ -55,8 +56,11 @@
         @update:smooth="updateSmooth"
         @update:xAxis="updateXAxis"
         @update:seriesData="updateSeriesData"
+        @update:series="updateSeries"
         @addItem="addItem"
+        @addLine="addLine"
         @removeItem="removeItem"
+        @removeLine="removeLine"
       />
 
     </div>
@@ -83,6 +87,7 @@ export default {
       xAxis: {},
       yAxis: {},
       series: [], 
+      updateKey: 1,
 
       diagramTypes: [
         { type: 'line', name: 'Линейные диаграммы' },
@@ -213,14 +218,6 @@ export default {
         }
       } 
     },
-    removeItem(index) {
-      if (this.selectType === 'pie') {
-        this.options.series[0].data.splice(index, 1)
-      } else {
-        this.options.series[0].data.splice(index, 1)
-        this.options.xAxis.data.splice(index, 1)
-      }
-    },
     addItem(credentials) {
       const { name, value } = credentials
       if (this.selectType === 'pie') {
@@ -230,6 +227,40 @@ export default {
         this.options.xAxis.data.push(name)
       }
     },
+    removeItem(index) {
+      if (this.selectType === 'pie') {
+        this.options.series[0].data.splice(index, 1)
+      } else {
+        this.options.series[0].data.splice(index, 1)
+        this.options.xAxis.data.splice(index, 1)
+      }
+    },
+
+    addLine(credentials) {
+      const { name, width, color, dotColor, smooth } = credentials
+      this.options.series.push(
+        {
+          name: name,
+          type: 'line',
+          data: [15, 30, 25, 18, 12, 20, 22],
+          smooth,
+          lineStyle: {
+            width,
+            color
+          },
+          itemStyle: {
+            color: dotColor
+          }
+        }
+      )
+      
+    },
+    removeLine(index) {
+      console.log('this.options.series', this.options.series)
+      this.options.series.splice(index, 1)
+      this.updateKey++
+    },
+
     updateTitle(newTitle) {
       this.options.title.text = newTitle
     },
@@ -253,6 +284,9 @@ export default {
     },
     updateSeriesData(newSeries) {
       this.options.series[0].data = newSeries
+    },
+    updateSeries(newSeries) {
+      this.options.series = newSeries
     }
   }
 }

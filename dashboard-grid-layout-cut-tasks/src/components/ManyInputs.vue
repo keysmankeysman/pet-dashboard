@@ -12,73 +12,79 @@
       </v-col>
     </v-row> -->
 
-    <v-container v-for="(line, index) in series" :key="index">
+    <v-card v-for="(line, index) in series" :key="index" class="line-card">
 
-      <v-row class="mt-2">
-        <v-col cols="4" sm="4">
-          Линия {{ index + 1 }}
-        </v-col>
-      </v-row>
+      <v-card-title>Линия {{ index + 1 }}</v-card-title>
 
-      <v-row class="mt-2">
-        <v-col cols="4" sm="4">
-          <v-text-field
-            v-model="line.name" 
-            label="Название Линии"
-            @input="updateSeries"
-            outlined
-          ></v-text-field>
-        </v-col>
-        <v-col cols="4" sm="4">
-          <v-text-field
-            v-if="selectType === 'line'"
-            v-model.number="line.lineStyle.width" 
-            label="Ширина линии"
-            type="number"
-            :rules="[rules.min, rules.max, rules.required]" 
-            @input="updateSeries"
-            outlined
-          ></v-text-field>
-        </v-col>
-        <v-col cols="2" sm="4">
-          <v-checkbox
-            v-if="selectType === 'line'"
-            v-model="line.smooth"
-            label="Плавность"
-            :value="modelSmooth"
-            @change="updateSeries"
-          ></v-checkbox>
-        </v-col>
-      </v-row>
+      <v-card-text>
+        <v-row class="mt-2">
+          <v-col cols="4" sm="4">
+            <v-text-field
+              v-model="line.name" 
+              label="Название Линии"
+              @input="updateSeries"
+              outlined
+            ></v-text-field>
+          </v-col>
+          <v-col cols="4" sm="4">
+            <v-text-field
+              v-if="selectType === 'line'"
+              v-model.number="line.lineStyle.width" 
+              label="Ширина линии"
+              type="number"
+              :rules="[rules.min, rules.max, rules.required]" 
+              @input="updateSeries"
+              outlined
+            ></v-text-field>
+          </v-col>
+          <v-col cols="2" sm="4">
+            <v-checkbox
+              v-if="selectType === 'line'"
+              v-model="line.smooth"
+              label="Плавность"
+              :value="modelSmooth"
+              @change="updateSeries"
+            ></v-checkbox>
+          </v-col>
+        </v-row>
 
-      <v-row class="mt-2">
-        <v-col cols="5" sm="5">
-          <v-label class="mb-2">Цвет линии</v-label>
-          <v-color-picker
-            v-if="['line'].includes(selectType)"
-            v-model="line.lineStyle.color"
-            label="Выберите цвет линии"
-            @input="updateSeries"
-            hide-inputs
-          ></v-color-picker>
-        </v-col>
-        <v-col cols="5" sm="5">
-          <v-label class="mb-2">Цвет точек</v-label>
-          <v-color-picker
-            v-if="['line','bar'].includes(selectType)"
-            v-model="line.itemStyle.color"
-            label="Выберите цвет точки"
-            @input="updateSeries"
-            hide-inputs
-          ></v-color-picker>
-        </v-col>
-      </v-row>
+        <v-row class="mt-2">
+          <v-col cols="5" sm="5">
+            <v-label class="mb-2">Цвет линии</v-label>
+            <v-color-picker
+              v-if="['line'].includes(selectType)"
+              v-model="line.lineStyle.color"
+              label="Выберите цвет линии"
+              @input="updateSeries"
+              hide-inputs
+            ></v-color-picker>
+          </v-col>
+          <v-col cols="5" sm="5">
+            <v-label class="mb-2">Цвет точек</v-label>
+            <v-color-picker
+              v-if="['line','bar'].includes(selectType)"
+              v-model="line.itemStyle.color"
+              label="Выберите цвет точки"
+              @input="updateSeries"
+              hide-inputs
+            ></v-color-picker>
+          </v-col>
+        </v-row>
+      </v-card-text>
 
-      <pre>
-        {{ line }}
-      </pre>
+      <v-btn icon @click="removeLine(index)" class="line-card__close" v-if="series.length !== 1">
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
 
-    </v-container>
+    </v-card>
+
+    <v-btn
+      color="primary"
+      class="mr-2"
+      @click="addLine()"
+    >
+      Добавить линию
+    </v-btn>
 
 
     <v-row class="mt-2">
@@ -109,63 +115,67 @@
       </v-col>
     </v-row>
 
-    <v-container v-if="selectType === 'pie'">
-      <v-row 
-        v-for="(item, index) in seriesData"
-        :key="index"
-        class="mt-2"
-      >
-        <v-col cols="12" sm="5">
-          <v-text-field
-            v-model="item.name"
-            :label="`Элемент ${index + 1}`"
-            outlined
-          ></v-text-field>
-          {{ item.name }}
-        </v-col>
-        
-        <v-col cols="12" sm="5">
-          <v-text-field
-            v-model.number="item.value"
-            :label="`значение: ${item.name}`"
-            type="number"
-            outlined
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" sm="1">
-          <v-btn
-            color="error"
-            @click="removeItem(index)"
-          >
-            Удалить элемент
-          </v-btn>
-        </v-col>
-      </v-row>
-    </v-container>
-    <v-container v-else>
-      <v-row>
-        <v-col v-for="(day, index) in xAxis" :key="index" class="position-static">
-          <v-btn icon @click="removeItem(index)" class="position-absolute bottom-0 right-0">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-          <v-text-field
-            v-model="xAxis[index]"
-            label="День недели"
-            @input="updateXAxis"
-          />
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col v-for="(value, index) in seriesData" :key="index">
-          <v-text-field
-            v-model="seriesData[index]"
-            label="Продажи"
-            type="number"
-            @input="updateSeries"
-          />
-        </v-col>
-      </v-row>
-    </v-container>
+    <v-card v-if="selectType === 'pie'">
+      <v-card-text>
+        <v-row 
+          v-for="(item, index) in seriesData"
+          :key="index"
+          class="mt-2"
+        >
+          <v-col cols="12" sm="5">
+            <v-text-field
+              v-model="item.name"
+              :label="`Элемент ${index + 1}`"
+              outlined
+            ></v-text-field>
+            {{ item.name }}
+          </v-col>
+          
+          <v-col cols="12" sm="5">
+            <v-text-field
+              v-model.number="item.value"
+              :label="`значение: ${item.name}`"
+              type="number"
+              outlined
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="1">
+            <v-btn
+              color="error"
+              @click="removeItem(index)"
+            >
+              Удалить элемент
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
+    <v-card v-else>
+      <v-card-text>
+        <v-row>
+          <v-col v-for="(day, index) in xAxis" :key="index" class="position-static">
+            <v-btn icon @click="removeItem(index)" class="position-absolute bottom-0 right-0">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+            <v-text-field
+              v-model="xAxis[index]"
+              label="День недели"
+              @input="updateXAxis"
+            />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col v-for="(value, index) in seriesData" :key="index">
+            <v-text-field
+              v-model="seriesData[index]"
+              label="Продажи"
+              type="number"
+              @input="updateSeries"
+            />
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
   </v-container>
 </template>
 
@@ -285,6 +295,12 @@ export default {
     removeItem (index) {
       this.$emit('removeItem', index)
     },
+    addLine() {
+      this.$emit('addLine', { name: '', width: 1, color: '4285F4', dotColor: '4285F4', smooth: false })
+    },
+    removeLine (index) {
+      this.$emit('removeLine', index)
+    },
     updateXAxis() {
       this.$emit('update:xAxis', this.xAxis)
     },
@@ -299,9 +315,23 @@ export default {
 </script>
 
 <style scoped>
+
+.line-card {
+  position: relative;
+}
+
+.line-card__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
 pre {
   background: #f5f5f5;
   padding: 16px;
   border-radius: 4px;
 }
+
+
+
 </style>
