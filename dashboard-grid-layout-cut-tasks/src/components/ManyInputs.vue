@@ -70,6 +70,59 @@
             ></v-color-picker>
           </v-col>
         </v-row>
+
+        <v-row>
+          <v-col v-for="(day, index) in xAxis" :key="index" class="position-static">
+            <v-btn icon @click="removeItem(index)" class="position-absolute bottom-0 right-0">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+            <v-text-field
+              v-model="xAxis[index]"
+              label="День недели"
+              @input="updateXAxis"
+            />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col v-for="(value, index) in line.data" :key="index">
+            <v-text-field
+              v-model="line.data[index]"
+              label="Продажи"
+              type="number"
+              @input="updateSeries"
+            />
+          </v-col>
+        </v-row>
+
+        <v-row class="mt-2">
+          <v-col cols="12" sm="5">
+            <v-text-field
+              v-model="newItemName"
+              label="Название"
+              outlined
+            ></v-text-field>
+          </v-col>
+          
+          <v-col cols="12" sm="5">
+            <v-text-field
+              v-model.number="newItemValue"
+              label="Значение"
+              type="number"
+              outlined
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="1">
+            <v-btn
+              color="primary"
+              class="mr-2"
+              @click="addItem()"
+            >
+              Добавить элемент
+            </v-btn>
+          </v-col>
+        </v-row>
+
+
       </v-card-text>
 
       <v-btn icon @click="removeLine(index)" class="line-card__close" v-if="series.length !== 1">
@@ -86,36 +139,7 @@
       Добавить линию
     </v-btn>
 
-
-    <v-row class="mt-2">
-      <v-col cols="12" sm="5">
-        <v-text-field
-          v-model="newItemName"
-          label="Название"
-          outlined
-        ></v-text-field>
-      </v-col>
-      
-      <v-col cols="12" sm="5">
-        <v-text-field
-          v-model.number="newItemValue"
-          label="Значение"
-          type="number"
-          outlined
-        ></v-text-field>
-      </v-col>
-      <v-col cols="12" sm="1">
-        <v-btn
-          color="primary"
-          class="mr-2"
-          @click="addItem()"
-        >
-          Добавить элемент
-        </v-btn>
-      </v-col>
-    </v-row>
-
-    <v-card v-if="selectType === 'pie'">
+    <!-- <v-card v-if="selectType === 'pie'">
       <v-card-text>
         <v-row 
           v-for="(item, index) in seriesData"
@@ -175,7 +199,7 @@
           </v-col>
         </v-row>
       </v-card-text>
-    </v-card>
+    </v-card> -->
   </v-container>
 </template>
 
