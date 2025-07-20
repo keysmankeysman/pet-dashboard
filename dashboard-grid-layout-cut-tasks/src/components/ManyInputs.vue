@@ -1,7 +1,7 @@
 <template>
   <v-container>
 
-    <v-row class="mt-2">
+    <!-- <v-row class="mt-2">
       <v-col cols="3" sm="5">
         <v-text-field
           v-model="modelTitle" 
@@ -10,42 +10,43 @@
           outlined
         ></v-text-field>
       </v-col>
-    </v-row>
+    </v-row> -->
 
-    <v-container v-for="line in lineItems" :key="line.id">
+    <v-container v-for="(line, index) in series" :key="index">
+
       <v-row class="mt-2">
         <v-col cols="4" sm="4">
-          Линия {{ line.id }}
+          Линия {{ index + 1 }}
         </v-col>
       </v-row>
 
       <v-row class="mt-2">
         <v-col cols="4" sm="4">
           <v-text-field
-            v-model="modelLineName" 
+            v-model="line.name" 
             label="Название Линии"
-            @input="updateLineName"
+            @input="updateSeries"
             outlined
           ></v-text-field>
         </v-col>
         <v-col cols="4" sm="4">
           <v-text-field
             v-if="selectType === 'line'"
-            v-model.number="modelLineWidth" 
+            v-model.number="line.lineStyle.width" 
             label="Ширина линии"
             type="number"
             :rules="[rules.min, rules.max, rules.required]" 
-            @input="updateLineWidth"
+            @input="updateSeries"
             outlined
           ></v-text-field>
         </v-col>
         <v-col cols="2" sm="4">
           <v-checkbox
             v-if="selectType === 'line'"
-            v-model="modelSmooth"
+            v-model="line.smooth"
             label="Плавность"
             :value="modelSmooth"
-            @change="updateSmooth"
+            @change="updateSeries"
           ></v-checkbox>
         </v-col>
       </v-row>
@@ -55,9 +56,9 @@
           <v-label class="mb-2">Цвет линии</v-label>
           <v-color-picker
             v-if="['line'].includes(selectType)"
-            v-model="modelLineColor"
+            v-model="line.lineStyle.color"
             label="Выберите цвет линии"
-            @input="updateLineColor"
+            @input="updateSeries"
             hide-inputs
           ></v-color-picker>
         </v-col>
@@ -65,14 +66,20 @@
           <v-label class="mb-2">Цвет точек</v-label>
           <v-color-picker
             v-if="['line','bar'].includes(selectType)"
-            v-model="modelDotColor"
+            v-model="line.itemStyle.color"
             label="Выберите цвет точки"
-            @input="updateDotColor"
+            @input="updateSeries"
             hide-inputs
           ></v-color-picker>
         </v-col>
       </v-row>
+
+      <pre>
+        {{ line }}
+      </pre>
+
     </v-container>
+
 
     <v-row class="mt-2">
       <v-col cols="12" sm="5">
@@ -244,6 +251,10 @@ export default {
     seriesData: {
       type: Array,
       default: () => []
+    },
+    series: {
+      type: Array,
+      default: () => []
     }
   },
   methods: {
@@ -277,8 +288,11 @@ export default {
     updateXAxis() {
       this.$emit('update:xAxis', this.xAxis)
     },
+    updateSeriesData() {
+      this.$emit('update:seriesData', this.seriesData)
+    },
     updateSeries() {
-      this.$emit('update:series', this.seriesData)
+      this.$emit('update:series', this.series)
     }
   }
 }

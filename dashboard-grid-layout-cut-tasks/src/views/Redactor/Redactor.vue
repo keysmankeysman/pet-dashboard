@@ -44,6 +44,7 @@
         :dotColor="options.series[0]?.itemStyle?.color"
         :smooth="options.series[0]?.smooth"
 
+        :series="options.series"
         
         @update:title="updateTitle"
         @update:lineWidth="updateLineWidth"
@@ -53,7 +54,7 @@
         
         @update:smooth="updateSmooth"
         @update:xAxis="updateXAxis"
-        @update:series="updateSeries"
+        @update:seriesData="updateSeriesData"
         @addItem="addItem"
         @removeItem="removeItem"
       />
@@ -250,7 +251,7 @@ export default {
     updateXAxis(newXAxis) {
       this.options.xAxis.data = newXAxis
     },
-    updateSeries(newSeries) {
+    updateSeriesData(newSeries) {
       this.options.series[0].data = newSeries
     }
   }
