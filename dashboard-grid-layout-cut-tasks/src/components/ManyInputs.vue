@@ -2,54 +2,77 @@
   <v-container>
 
     <v-row class="mt-2">
-      <v-col cols="12" sm="5">
+      <v-col cols="3" sm="5">
         <v-text-field
           v-model="modelTitle" 
-          label="Название Графикаааа"
+          label="Название Графика"
           @input="updateTitle"
           outlined
         ></v-text-field>
-
-        <v-checkbox
-          v-if="selectType === 'line'"
-          v-model="modelSmooth"
-          label="Сгладить линии"
-          :value="modelSmooth"
-          @change="updateSmooth"
-        ></v-checkbox>
-
-        <v-text-field
-          v-if="selectType === 'line'"
-          v-model.number="modelLineWidth" 
-          label="Ширина линии"
-          type="number"
-          :rules="[rules.min, rules.max, rules.required]" 
-          @input="updateLineWidth"
-          outlined
-        ></v-text-field>
-      </v-col>
-      <v-col cols="12" sm="5">
-
-        Цвет линии
-        <v-color-picker
-          v-if="['line'].includes(selectType)"
-          v-model="modelLineColor"
-          label="Выберите цвет линии"
-          @input="updateLineColor"
-          hide-inputs
-        ></v-color-picker>
-
-        Цвет точек
-        <v-color-picker
-          v-if="['line','bar'].includes(selectType)"
-          v-model="modelDotColor"
-          label="Выберите цвет точки"
-          @input="updateDotColor"
-          hide-inputs
-        ></v-color-picker>
-
       </v-col>
     </v-row>
+
+    <v-container v-for="line in lineItems" :key="line.id">
+      <v-row class="mt-2">
+        <v-col cols="4" sm="4">
+          Линия {{ line.id }}
+        </v-col>
+      </v-row>
+
+      <v-row class="mt-2">
+        <v-col cols="4" sm="4">
+          <v-text-field
+            v-model="modelLineName" 
+            label="Название Линии"
+            @input="updateLineName"
+            outlined
+          ></v-text-field>
+        </v-col>
+        <v-col cols="4" sm="4">
+          <v-text-field
+            v-if="selectType === 'line'"
+            v-model.number="modelLineWidth" 
+            label="Ширина линии"
+            type="number"
+            :rules="[rules.min, rules.max, rules.required]" 
+            @input="updateLineWidth"
+            outlined
+          ></v-text-field>
+        </v-col>
+        <v-col cols="2" sm="4">
+          <v-checkbox
+            v-if="selectType === 'line'"
+            v-model="modelSmooth"
+            label="Плавность"
+            :value="modelSmooth"
+            @change="updateSmooth"
+          ></v-checkbox>
+        </v-col>
+      </v-row>
+
+      <v-row class="mt-2">
+        <v-col cols="5" sm="5">
+          <v-label class="mb-2">Цвет линии</v-label>
+          <v-color-picker
+            v-if="['line'].includes(selectType)"
+            v-model="modelLineColor"
+            label="Выберите цвет линии"
+            @input="updateLineColor"
+            hide-inputs
+          ></v-color-picker>
+        </v-col>
+        <v-col cols="5" sm="5">
+          <v-label class="mb-2">Цвет точек</v-label>
+          <v-color-picker
+            v-if="['line','bar'].includes(selectType)"
+            v-model="modelDotColor"
+            label="Выберите цвет точки"
+            @input="updateDotColor"
+            hide-inputs
+          ></v-color-picker>
+        </v-col>
+      </v-row>
+    </v-container>
 
     <v-row class="mt-2">
       <v-col cols="12" sm="5">
@@ -151,11 +174,23 @@ export default {
       newItemName: '',
       newItemValue: '',
       modelTitle: '',
+      modelLineName: this.lineName,
       modelLineWidth: this.lineWidth,
       modelLineColor: this.lineColor,
       modelDotColor: this.dotColor,
       modelSmooth: this.smooth,
-      allowInputTypes: ['line', 'pie', 'bar'] 
+      allowInputTypes: ['line', 'pie', 'bar'],
+      lineItems: [
+        {
+          id: 1,
+          name: '',
+          width: 3,
+          smooth: '',
+          colorLine: '',
+          colorCircle: '' 
+        }
+      ],
+
     }
   },
   watch: {
@@ -186,6 +221,10 @@ export default {
       type: String,
       default: () => ''
     },
+    lineName: {
+      type: String,
+      default: () => ''
+    },
     lineWidth: {
       type: Number,
       default: () => null
@@ -210,6 +249,9 @@ export default {
   methods: {
     updateTitle() {
       this.$emit('update:title', this.modelTitle)
+    },
+    updateLineName() {
+      this.$emit('update:lineName', this.modelLineName)
     },
     updateLineWidth() {
       this.$emit('update:lineWidth', this.modelLineWidth)

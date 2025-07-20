@@ -34,25 +34,28 @@
         v-if="selectType"
         :seriesData="options.series[0].data"
         :xAxis="options.xAxis?.data"
+        :selectType="selectType"
 
         :title="options.title.text"
+
+        :lineName="options.series[0]?.name"
         :lineWidth="options.series[0]?.lineStyle?.width"
         :lineColor="options.series[0]?.lineStyle?.color"
         :dotColor="options.series[0]?.itemStyle?.color"
-        :smooth="options.series[0].smooth"
+        :smooth="options.series[0]?.smooth"
 
-        :selectType="selectType"
-        @addItem="addItem"
-        @removeItem="removeItem"
-
+        
         @update:title="updateTitle"
         @update:lineWidth="updateLineWidth"
+        @update:lineName="updateLineName"
         @update:lineColor="updateLineColor"
         @update:dotColor="updateDotColor"
         
         @update:smooth="updateSmooth"
         @update:xAxis="updateXAxis"
         @update:series="updateSeries"
+        @addItem="addItem"
+        @removeItem="removeItem"
       />
 
     </div>
@@ -200,6 +203,9 @@ export default {
     },
     updateTitle(newTitle) {
       this.options.title.text = newTitle
+    },
+    updateLineName(lineName) {
+      this.options.series[0].name = lineName
     },
     updateLineWidth(lineWidth) {
       this.options.series[0].lineStyle.width = lineWidth
