@@ -123,7 +123,35 @@ export default {
           tooltip: {},
           xAxis: { type: 'category', data: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'] },
           yAxis: { type: 'value' },
-          series: [{ name: 'Продажи', type: 'line', data: [120, 200, 150, 80, 70, 110, 130], smooth: true, lineStyle: { width: 3, color: '#4285F4'}, itemStyle: { color: '#eeeeee' } }],
+          series: [
+            {
+                name: 'Продажи',
+                type: 'line',
+                data: [50, 210, 200, 250, 60, 20, 100],
+                smooth: true,
+                lineStyle: {
+                    width: 3,
+                    color: '#4285F4'
+                },
+                itemStyle: {
+                    color: '#4285F4'
+                }
+            },
+            {
+                name: 'Возвраты',
+                type: 'line',
+                data: [15, 30, 25, 18, 12, 20, 22],
+                smooth: true,
+                lineStyle: {
+                    width: 3,
+                    color: '#EA4335'
+                },
+                itemStyle: {
+                    color: '#EA4335'
+                }
+            }
+          ],
+          // series: [{ name: 'Продажи', type: 'line', data: [120, 200, 150, 80, 70, 110, 130], smooth: true, lineStyle: { width: 3, color: '#4285F4'}, itemStyle: { color: '#eeeeee' } }],
           // series: [{ name: 'Продажи', type: 'line', data: [120, 200, 150, 80, 70, 110, 130], smooth: true }],
         }
       } else if (this.selectType === 'bar') {

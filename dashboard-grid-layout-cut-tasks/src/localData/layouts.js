@@ -162,7 +162,8 @@ export default [
             itemStyle: {
                 color: '#EA4335'
             }
-        }]
+        }
+        ]
     }
 }
 ]
