@@ -1,6 +1,6 @@
 export default [
 {
-    i: 0,
+    i: 1,
     x: 0,
     y: 0,
     w: 6,
@@ -14,13 +14,13 @@ export default [
     }
 }, 
 {
-    i: 1,
+    i: 2,
     x: 6,
     y: 0,
     w: 6,
     h: 8,
     options: {
-        title: { text: 'График бар' },
+        title: { text: 'График бар ' },
         tooltip: { trigger: 'axis' },
         xAxis: { type: 'category', data: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'] },
         yAxis: { type: 'value' },
@@ -28,9 +28,9 @@ export default [
     }
 }, 
 {
-    i: 2,
-    x: 6,
-    y: 0,
+    i: 3,
+    x: 0,
+    y: 8,
     w: 6,
     h: 8,
     options: {
@@ -57,9 +57,9 @@ export default [
     },
 }, 
 {
-    i: 3,
+    i: 4,
     x: 6,
-    y: 0,
+    y: 8,
     w: 6,
     h: 8,
     options: {
@@ -82,9 +82,9 @@ export default [
     },
 }, 
 {
-    i: 4,
+    i: 5,
     x: 0,
-    y: 6,
+    y: 16,
     w: 6,
     h: 8,
     options: {
@@ -112,9 +112,9 @@ export default [
     }
 },
 {
-    i: 5,
+    i: 6,
     x: 6,
-    y: 6,
+    y: 16,
     w: 6,
     h: 8,
     options: {
@@ -126,9 +126,9 @@ export default [
     }
 }, 
 {
-    i: 6,
+    i: 7,
     x: 0,
-    y: 12,
+    y: 24,
     w: 6,
     h: 8,
     options: {

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import auth from './modules/auth.js'
+import dashboard from './modules/dashboard.js'
 
 Vue.use(Vuex)
 
@@ -36,11 +37,10 @@ export default new Vuex.Store({
         name: 'RealTime'
     }]
   },
-  mutations: {
-  },
-  actions: {
-  },
+  mutations: {},
+  actions: {},
   modules: {
     auth,
+    dashboard
   },
 })

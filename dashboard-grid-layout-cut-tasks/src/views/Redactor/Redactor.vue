@@ -68,10 +68,11 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 // import TheMain from '@/components/task-temporary/TheMain.vue'
 import Chart from '@/components/charts/Chart.vue'
 import ManyInputs from '@/components/ManyInputs.vue'
-import { EventBus } from '@/plugins/eventBus.js'
+// import { EventBus } from '@/plugins/eventBus.js'
 
 export default {
   name: 'Redactor',
@@ -100,6 +101,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions('dashbord', ['addToDashboard']),
     randomInteger(min, max) {
       let rand = min + Math.random() * (max + 1 - min)
       return Math.floor(rand)
@@ -108,18 +110,17 @@ export default {
       this.item = {
         i: this.randomInteger(100, 1000),
         x: 0,
-        y: 6,
+        y: 0,
         w: 6,
-        h: 6,
+        h: 8,
         options: this.options
       }
-      this.$router.push('/dashboard')
-      EventBus.$emit('addToDashboard', this.item)
-
+      // EventBus.$emit('addToDashboard', this.item)
+      this.$store.dispatch('dashboard/addToDashboard', this.item)
     },
-    beforeDestroy() {
-      EventBus.$off('addToDashboard', this.handleAddToDashboard)
-    },
+    // beforeDestroy() {
+    //   EventBus.$off('addToDashboard', this.handleAddToDashboard)
+    // },
     selectedItem() {
       this.options = {}
 

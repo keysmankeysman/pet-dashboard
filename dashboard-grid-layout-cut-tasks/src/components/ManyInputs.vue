@@ -1,7 +1,8 @@
 <template>
   <v-container>
 
-    <!-- <v-row class="mt-2">
+    График
+    <v-row class="mt-2">
       <v-col cols="3" sm="5">
         <v-text-field
           v-model="modelTitle" 
@@ -10,7 +11,8 @@
           outlined
         ></v-text-field>
       </v-col>
-    </v-row> -->
+    </v-row>
+
     <v-container v-if="['line', 'bar'].includes(selectType)">
       <v-card v-for="(line, index) in series" :key="index" class="line-card">
 

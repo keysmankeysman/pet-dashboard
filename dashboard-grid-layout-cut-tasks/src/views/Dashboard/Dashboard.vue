@@ -1,7 +1,7 @@
 <template>
   <v-app class="app-background--primary">
     <grid-layout
-        :layout.sync="layout"
+        :layout.sync="layouts"
         :col-num="12"
         :row-height="30"
         :is-draggable="true"
@@ -12,7 +12,7 @@
         :use-css-transforms="true"
     >
 
-        <grid-item v-for="item in layout"
+        <grid-item v-for="item in layouts"
             :x="item.x"
             :y="item.y"
             :w="item.w"
@@ -38,7 +38,6 @@
 
 <script>
 // import localDiagrams from './diagrams.js'
-import localLayouts from '@/localData/layouts.js'
 import VueGridLayout from 'vue-grid-layout'
 import Chart from '@/components/charts/Chart.vue'
 import { EventBus } from '@/plugins/eventBus.js'
@@ -57,7 +56,6 @@ export default {
   },
   data() {
     return {
-        layout: localLayouts,
         options: {
           title: { text: 'График' },
           tooltip: {},
@@ -69,8 +67,10 @@ export default {
         // localDiagrams,
     }
   },
-  methods: {
-
+  computed: {
+    layouts() {
+      return this.$store.state.dashboard.layouts
+    }
   }
 }
 </script>
