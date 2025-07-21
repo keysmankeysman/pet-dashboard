@@ -16,10 +16,14 @@ const getCoords = (layouts) => {
     return newCoords
 }
 
+const updateLocalStorage = (layouts) => {
+    localStorage.setItem('layouts', JSON.stringify(layouts))
+}
+
 export default {
     namespaced: true,
     state: () => ({
-        layouts: localLayouts,
+        layouts: JSON.parse(localStorage.getItem('layouts')) || localLayouts,
     }),
     mutations: {
         setLayout(store, item) {
@@ -35,11 +39,12 @@ export default {
             item.x = x
             item.y = y
             context.commit('setLayout', item)
+            updateLocalStorage(context.state.layouts)
         },
-        removeItem({commit}, index) {
-            commit('removeItem', index)
+        removeItem(context, index) {
+            context.commit('removeItem', index)
+            updateLocalStorage(context.state.layouts)
         }
-        // this.$router.push('/dashboard')
     },
     getters: {
 

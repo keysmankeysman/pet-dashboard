@@ -117,6 +117,7 @@ export default {
       }
       // EventBus.$emit('addToDashboard', this.item)
       this.$store.dispatch('dashboard/addToDashboard', this.item)
+      this.$router.push('/dashboard')
     },
     // beforeDestroy() {
     //   EventBus.$off('addToDashboard', this.handleAddToDashboard)
