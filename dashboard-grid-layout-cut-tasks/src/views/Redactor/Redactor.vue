@@ -257,7 +257,6 @@ export default {
       
     },
     removeLine(index) {
-      console.log('this.options.series', this.options.series)
       this.options.series.splice(index, 1)
       this.updateKey++
     },

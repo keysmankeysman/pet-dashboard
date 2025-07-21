@@ -25,6 +25,9 @@ export default {
         setLayout(store, item) {
             store.layouts.push(item)
         },
+        removeItem(store, index) {
+            store.layouts.splice(index, 1)
+        }
     },
     actions: {
         addToDashboard(context, item) {
@@ -32,6 +35,9 @@ export default {
             item.x = x
             item.y = y
             context.commit('setLayout', item)
+        },
+        removeItem({commit}, index) {
+            commit('removeItem', index)
         }
         // this.$router.push('/dashboard')
     },

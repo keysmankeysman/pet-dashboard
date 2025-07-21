@@ -1,7 +1,10 @@
 <template>
-  <v-card :class="{ 'h100': autoresize }">
+  <v-card :class="{ 'h100': autoresize }" class="chart-wrp">
     <v-card-title v-if="!selectType">Диаграмма</v-card-title>
-      <v-chart class="chart" :option="options" :autoresize="autoresize" :class="{ chartHeight: !autoresize }" />
+    <v-chart class="chart" :option="options" :autoresize="autoresize" :class="{ chartHeight: !autoresize }" />
+    <v-btn icon @click="removeItem" class="chart-remove">
+      <v-icon>mdi-close</v-icon>
+    </v-btn>
   </v-card>
 </template>
 
@@ -40,6 +43,11 @@ export default defineComponent({
       default: () => {},
       required: true
     },
+    index: {
+      type: Number,
+      default: 0,
+      required: true
+    },
     selectType: {
       type: String,
       default: '',
@@ -50,11 +58,26 @@ export default defineComponent({
       default: true,
       required: true
     }
+  },
+  methods: {
+    removeItem() {
+      this.$emit('removeItem', this.index)
+    }
   }
 })
 </script>
 
 <style scoped>
+.chart-wrp {
+  position: relative;
+}
+
+.chart-remove {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
 .h100 {
   height: 100%;
 }

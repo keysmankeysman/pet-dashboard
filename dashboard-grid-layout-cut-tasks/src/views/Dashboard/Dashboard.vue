@@ -12,7 +12,7 @@
         :use-css-transforms="true"
     >
 
-        <grid-item v-for="item in layouts"
+        <grid-item v-for="(item, index) in layouts"
             :x="item.x"
             :y="item.y"
             :w="item.w"
@@ -24,8 +24,10 @@
             <Chart 
                 :options="item.options"
                 :key="item.i"
+                :index="index"
                 :selectType="item.options.series[0].type"
                 :autoresize="true"
+                @removeItem="removeItem"
             />
             <!-- <div v-else>
                 {{ item.i }}
@@ -70,6 +72,11 @@ export default {
   computed: {
     layouts() {
       return this.$store.state.dashboard.layouts
+    }
+  },
+  methods: {
+    removeItem(index) {
+      this.$store.dispatch('dashboard/removeItem', index)
     }
   }
 }
