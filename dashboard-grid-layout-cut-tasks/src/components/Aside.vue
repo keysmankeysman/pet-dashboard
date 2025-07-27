@@ -46,7 +46,7 @@
           icon: 'home-outline',
         },
         {
-          title: 'Грфики',
+          title: 'Графики',
           href: '/сharts',
           icon: 'analytics-outline',
         }
