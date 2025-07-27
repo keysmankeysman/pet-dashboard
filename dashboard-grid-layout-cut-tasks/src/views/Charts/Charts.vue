@@ -6,7 +6,16 @@
         :items="сharts"
         :items-per-page="5"
         class="elevation-1"
-    ></v-data-table>
+    >
+      <template v-slot:item.actions="{ item }">
+        <v-icon
+          small
+          @click="deleteItem(item)"
+        >
+          mdi-delete
+        </v-icon>
+      </template>
+    </v-data-table>
 
   </v-app>
 </template>
@@ -28,15 +37,21 @@ export default {
         y: 0,
         w: 6,
         h: 8,
-        options: {}
+        options: {},
       }, 
       headers: [
         { text: 'Id', value: 'i' },
         { text: 'координата x', value: 'x' },
         { text: 'координата y', value: 'y' },
         { text: 'Ширина', value: 'w' },
-        { text: 'Высота', value: 'h' }
+        { text: 'Высота', value: 'h' },
+        { text: 'Удалить', value: 'actions' },
       ]
+    }
+  },
+  methods: {
+    deleteItem(item) {
+      console.log('del', item)
     }
   }
 }
