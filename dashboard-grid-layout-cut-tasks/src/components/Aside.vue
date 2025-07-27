@@ -39,31 +39,16 @@
           title: 'Главный экран',
           href: '/dashboard',
           icon: 'home-outline',
-          accessProp: 'homePage'
         },
         {
-          title: 'Онлайн редактор',
+          title: 'Редактор',
           href: '/redactor',
           icon: 'home-outline',
-          accessProp: 'redactor'
         },
         {
-          title: 'В реальном времени',
-          href: '/realtime',
+          title: 'Грфики',
+          href: '/сharts',
           icon: 'analytics-outline',
-          accessProp: 'realTimePage'
-        },
-        {
-          title: 'Организация',
-          href: '/organization',
-          icon: 'business-outline',
-          accessProp: 'organizationPage'
-        },
-        {
-          title: 'Отчеты',
-          href: '/reports',
-          icon: 'document-outline',
-          accessProp: 'reports'
         }
       ]
     }),

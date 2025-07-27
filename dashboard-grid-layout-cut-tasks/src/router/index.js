@@ -16,30 +16,16 @@ const routes = [
     name: 'Dashboard',
     component: () => import('@/views/Dashboard/Dashboard.vue')
   },
-  // Дашбоард 2
   {
     path: '/redactor',
     name: 'Redactor',
     component: () => import('@/views/Redactor/Redactor.vue')
   },
-  // в реальном времени
   {
-		path: '/report_categories/:id',
-		name: 'ReportCategories',
-    component: () => import('@/views/Reports/ReportCategoriesDetails.vue')
-	},
-    // организация
-  {
-		path: '/organization',
-		name: 'Organization',
-		component: () => import('@/views/Organization/Main.vue'),
-	},
-  // 
-  {
-		path: '/reports',
-		name: 'ReportsList',
-		component: () => import('@/views/Reports/ReportList.vue'),
-	},
+    path: '/сharts',
+    name: 'Charts',
+    component: () => import('@/views/Charts/Charts.vue')
+  },
   {
 		path: '/login',
 		name: 'Login',
