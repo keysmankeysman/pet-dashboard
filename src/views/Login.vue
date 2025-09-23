@@ -14,12 +14,6 @@
             </v-toolbar>
             <v-card-text>
               <v-form>
-                <v-select
-                  v-model="form.provider"
-                  :items="providerOptions"
-                  class="set-int-header"
-                  offset-y
-                />
                 <v-text-field
                   :disabled="form.loading"
                   color="primary_text"
@@ -70,39 +64,28 @@
 <script>
 
 export default {
-  name: "LoginView",
+  name: 'LoginView',
   data() {
     return {
       form: {
-        login: "",
-        password: "",
-        provider: "Local",
+        login: '',
+        password: '',
         loading: false,
       },
-      providerOptions: [
-        {
-          value:"Local",
-          text:"Встроенная учетная запись"
-        },
-        {
-          value:"Ldap",
-          text:"Доменная учетная запись"
-        },
-      ],
       warnModal: {
         isVisible: false,
-        title: "",
-        msg: "",
+        title: '',
+        msg: '',
       },
       recoveryModal: {
         isVisible: false,
-        email: "",
+        email: '',
       },
       changeModal: {
         isVisible: false,
-        email: "",
+        email: '',
       },
-    };
+    }
   },
   computed: {
 
@@ -124,7 +107,6 @@ export default {
     submit() {
       console.log(this.form)
       if (this.form.login === 'admin' && this.form.password === 'admin') {
-        console.log('авторизация прошла успешно')
         this.handleSubmitSuccess()
       } else {
         this.handleSubmitError()
@@ -132,17 +114,6 @@ export default {
     },
 
     handleSubmitSuccess() {
-      console.log('успешный запрос')
-      // localStorage.setItem("clientId", 1);
-      // localStorage.removeItem("selectedPeriod");
-      // localStorage.removeItem("selectedPeriodStart");
-      // localStorage.removeItem("selectedPeriodEnd");
-      // this.$store.state.selectedPeriod = "Текущий день";
-      // this.$store.state.selectedPeriodStart = "";
-      // this.$store.state.selectedPeriodEnd = "secondDate";
-      // this.$eventManager.$emit("initApp");
-      // this.login(data);
-
       this.$router.push({ path: "/" });
     },
     handleSubmitError() {

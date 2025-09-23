@@ -8,23 +8,22 @@ const routes = [
   {
     path: '/',
     name: 'home-view',
-    component: () => import('@/views/Dashboard/Dashboard.vue')
+    component: () => import('@/views/Dashboard.vue')
   },
-  // Дашбоард
   {
     path: '/dashboard',
     name: 'Dashboard',
-    component: () => import('@/views/Dashboard/Dashboard.vue')
+    component: () => import('@/views/Dashboard.vue')
   },
   {
     path: '/redactor',
     name: 'Redactor',
-    component: () => import('@/views/Redactor/Redactor.vue')
+    component: () => import('@/views/Redactor.vue')
   },
   {
     path: '/сharts',
     name: 'Charts',
-    component: () => import('@/views/Charts/Charts.vue')
+    component: () => import('@/views/Charts.vue')
   },
   {
 		path: '/login',

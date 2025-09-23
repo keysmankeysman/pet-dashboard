@@ -2,7 +2,7 @@
   <v-card :class="{ 'h100': autoresize }" class="chart-wrp">
     <v-card-title v-if="!selectType">Диаграмма</v-card-title>
     <v-chart class="chart" :option="options" :autoresize="autoresize" :class="{ chartHeight: !autoresize }" />
-    <v-btn icon @click="removeItem" v-if="index" class="chart-remove">
+    <v-btn icon @click="removeItem" class="chart-remove">
       <v-icon>mdi-close</v-icon>
     </v-btn>
   </v-card>
