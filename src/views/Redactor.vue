@@ -1,15 +1,12 @@
 <template>
   <v-app class="app-background--primary">
     <div data-app>
-
-      <!-- <TheMain></TheMain> -->
-
       <v-toolbar>
         <v-spacer></v-spacer>
         <v-btn @click="handleAddToDashboard" :disabled="!selectType" color="primary" class="mr-5">
           Добавить диаграмму на дашборд
         </v-btn>
-        <v-btn>
+        <v-btn @click="resetToDefault">
           Обновить до дефолтных значений
         </v-btn>
       </v-toolbar>
@@ -69,17 +66,14 @@
 
 <script>
 import { mapActions } from 'vuex'
-// import TheMain from '@/components/task-temporary/TheMain.vue'
 import Chart from '@/components/charts/Chart.vue'
 import ManyInputs from '@/components/ManyInputs.vue'
-// import { EventBus } from '@/plugins/eventBus.js'
 
 export default {
   name: 'Redactor',
   components: {
     ManyInputs,
-    Chart,
-    // TheMain
+    Chart
   },
   data() {
     return {
@@ -115,13 +109,12 @@ export default {
         h: 8,
         options: this.options
       }
-      // EventBus.$emit('addToDashboard', this.item)
       this.$store.dispatch('dashboard/addToDashboard', this.item)
       this.$router.push('/dashboard')
     },
-    // beforeDestroy() {
-    //   EventBus.$off('addToDashboard', this.handleAddToDashboard)
-    // },
+    resetToDefault() {
+
+    },
     selectedItem() {
       this.options = {}
 
@@ -159,8 +152,6 @@ export default {
                 }
             }
           ],
-          // series: [{ name: 'Продажи', type: 'line', data: [120, 200, 150, 80, 70, 110, 130], smooth: true, lineStyle: { width: 3, color: '#4285F4'}, itemStyle: { color: '#eeeeee' } }],
-          // series: [{ name: 'Продажи', type: 'line', data: [120, 200, 150, 80, 70, 110, 130], smooth: true }],
         }
       } else if (this.selectType === 'bar') {
         this.options = {
@@ -187,13 +178,6 @@ export default {
             },
           ],
         }
-        // this.options = {
-        //   title: { text: '' },
-        //   tooltip: { trigger: 'axis' },
-        //   xAxis: { type: 'category', data: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'] },
-        //   yAxis: { type: 'value' },
-        //   series: [{ name: 'Продажи', type: 'bar', data: [500, 700, 600, 800, 900, 1000, 1100] }],
-        // }
       } else if (this.selectType === 'pie') {
         this.options = {
           title: { text: '', left: 'center' },

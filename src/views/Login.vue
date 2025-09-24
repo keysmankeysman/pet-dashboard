@@ -114,7 +114,7 @@ export default {
     },
 
     handleSubmitSuccess() {
-      this.$router.push({ path: "/" });
+      this.$router.push({ path: '/dashboard' })
     },
     handleSubmitError() {
       console.log('ошибка')

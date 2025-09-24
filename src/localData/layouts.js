@@ -65,7 +65,7 @@ export default [
     options: {
     title: { text: 'Население городов (млн)' },
     tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
-    grid: { left: '20%' }, // Для длинных подписей
+    grid: { left: '20%' },
     xAxis: { type: 'value' },
     yAxis: {
         type: 'category',

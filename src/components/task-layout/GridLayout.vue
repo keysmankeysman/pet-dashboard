@@ -365,17 +365,12 @@ export default {
 			if (eventName === 'resizeend') this.$emit('layout-updated', this.layout);
 		},
 
-		// finds or generates new layouts for set breakpoints
 		responsiveGridLayout() {
 
 			let newBreakpoint = getBreakpointFromWidth(this.breakpoints, this.width);
 			let newCols = getColsFromBreakpoint(newBreakpoint, this.cols);
-
-			// save actual layout in layouts
 			if (this.lastBreakpoint != null && !this.layouts[this.lastBreakpoint])
 				this.layouts[this.lastBreakpoint] = cloneLayout(this.layout);
-
-			// Find or generate a new layout.
 			let layout = findOrGenerateResponsiveLayout(
 				this.originalLayout,
 				this.layouts,
@@ -384,9 +379,7 @@ export default {
 				this.lastBreakpoint,
 				newCols,
 				this.verticalCompact
-			);
-
-			// Store the new layout.
+			)
 			this.layouts[newBreakpoint] = layout;
 
 			// new prop sync
