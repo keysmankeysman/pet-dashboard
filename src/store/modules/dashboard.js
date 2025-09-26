@@ -1,7 +1,12 @@
 import localLayouts from '@/localData/layouts.js'
 
 const getCoords = (layouts) => {
-    const newCoords = { x: 0, y: 0}
+    const newCoords = { x: 0, y: 0 }
+
+    if (!layouts.length) {
+        return newCoords
+    }
+
     const max = Math.max(...layouts.map(item => item.y))
     const last = layouts[layouts.length - 1]
 

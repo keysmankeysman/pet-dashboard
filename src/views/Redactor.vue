@@ -6,8 +6,8 @@
         <v-btn @click="handleAddToDashboard" :disabled="!selectType" color="primary" class="mr-5">
           Добавить диаграмму на дашборд
         </v-btn>
-        <v-btn @click="resetToDefault">
-          Обновить до дефолтных значений
+        <v-btn @click="resetToDefault" :disabled="!selectType">
+          Обновить до начальных значений
         </v-btn>
       </v-toolbar>
 
@@ -113,14 +113,14 @@ export default {
       this.$router.push('/dashboard')
     },
     resetToDefault() {
-
+      this.selectedItem()
     },
     selectedItem() {
       this.options = {}
 
       if (this.selectType === 'line') {
         this.options = {
-          title: { text: '' },
+          title: { text: 'Линейная диаграмма' },
           tooltip: {},
           xAxis: { type: 'category', data: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'] },
           yAxis: { type: 'value' },
@@ -155,7 +155,7 @@ export default {
         }
       } else if (this.selectType === 'bar') {
         this.options = {
-          title: { text: 'Доходы и расходы 2023' },
+          title: { text: 'Столбчатая диаграмма' },
           tooltip: { trigger: 'axis' },
           legend: { data: ['Доходы', 'Расходы'] },
           xAxis: {
@@ -180,7 +180,7 @@ export default {
         }
       } else if (this.selectType === 'pie') {
         this.options = {
-          title: { text: '', left: 'center' },
+          title: { text: 'Круговая диаграмма', left: 'center' },
           tooltip: { trigger: 'item' },
           series: [{
             name: 'Доля рынка',

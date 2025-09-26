@@ -7,10 +7,10 @@
         :items-per-page="5"
         class="elevation-1"
     >
-      <template v-slot:item.actions="{ item }">
+      <template v-slot:item.actions="{ item, index}">
         <v-icon
           small
-          @click="deleteItem(item)"
+          @click="removeItem(item, index)"
         >
           mdi-delete
         </v-icon>
@@ -40,7 +40,7 @@ export default {
         options: {},
       }, 
       headers: [
-        { text: 'Id', value: 'i' },
+        { text: 'Название', value: 'options.title.text' },
         { text: 'координата x', value: 'x' },
         { text: 'координата y', value: 'y' },
         { text: 'Ширина', value: 'w' },
@@ -50,8 +50,8 @@ export default {
     }
   },
   methods: {
-    deleteItem(item) {
-      console.log('del', item)
+    removeItem(item, index) {
+      this.$store.dispatch('dashboard/removeItem', index)
     }
   }
 }

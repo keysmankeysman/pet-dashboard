@@ -8,7 +8,7 @@
               <v-toolbar-title
                 color="primary_text"
                 style="font-size: 28px; font-weight: bold"
-                >Авторизация</v-toolbar-title
+                >Авторизация (admin / admin)</v-toolbar-title
               >
               <v-spacer></v-spacer>
             </v-toolbar>
@@ -72,11 +72,6 @@ export default {
         password: '',
         loading: false,
       },
-      warnModal: {
-        isVisible: false,
-        title: '',
-        msg: '',
-      },
       recoveryModal: {
         isVisible: false,
         email: '',
@@ -91,19 +86,6 @@ export default {
 
   },
   methods: {
-
-    showWarn(title, message) {
-      this.warnModal.isVisible = true;
-      this.warnModal.title = title;
-      this.warnModal.msg = message;
-    },
-
-    closeWarn() {
-      this.warnModal.isVisible = false;
-      this.warnModal.title = "";
-      this.warnModal.msg = "";
-    },
-
     submit() {
       console.log(this.form)
       if (this.form.login === 'admin' && this.form.password === 'admin') {
